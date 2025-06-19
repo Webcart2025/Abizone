@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Visa Entry Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+    .radio-group label {
+      font-weight: normal;
+    }
+    .total-days {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Visa Entry Form</h2>
+  <form id="entryForm">
+    <div class="radio-group">
+      <label><input type="radio" name="entry_type" value="Single Entry" required> Single Entry</label>
+      <label><input type="radio" name="entry_type" value="Single Express Entry"> Single Express Entry</label>
+      <label><input type="radio" name="entry_type" value="Multi Entry"> Multi Entry</label>
+      <label><input type="radio" name="entry_type" value="Multi Express Entry"> Multi Express Entry</label>
+    </div>
+
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="mobile">Mobile Number (+91)</label>
+    <input type="tel" id="mobile" name="mobile" placeholder="+91xxxxxxxxxx" pattern="^\+91[0-9]{10}$" required>
+
+    <label for="start_date">Start Date</label>
+    <input type="date" id="start_date" name="start_date" required>
+
+    <label for="end_date">End Date</label>
+    <input type="date" id="end_date" name="end_date" required>
+
+    <p class="total-days">Total Days: <span id="totalDays">0</span></p>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+  const startDate = document.getElementById('start_date');
+  const endDate = document.getElementById('end_date');
+  const totalDaysDisplay = document.getElementById('totalDays');
+
+  function calculateDays() {
+    const start = new Date(startDate.value);
+    const end = new Date(endDate.value);
+    const timeDiff = end - start;
+
+    if (!isNaN(timeDiff) && timeDiff >= 0) {
+      const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+      totalDaysDisplay.textContent = days;
+    } else {
+      totalDaysDisplay.textContent = 0;
+    }
+  }
+
+  startDate.addEventListener('change', calculateDays);
+  endDate.addEventListener('change', calculateDays);
+
+  document.getElementById('entryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Form submitted successfully!');
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5%;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo img {
+  height: 45px;
+}
+
+.desktop-nav {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.desktop-nav li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500px;
+  padding: 4px 6px;
+}
+
+.desktop-nav li a:hover {
+  background-color: #FDC805;
+  border-radius: 4px;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.hamburger img {
+  width: 30px;
+}
+
+/* Sidebar Menu */
+.menubar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 75%;
+  height: 100vh;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease-in-out;
+  z-index: 999;
+}
+
+.menubar.active {
+  left: 0;
+}
+
+.menubar .close-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.menubar .close-btn img {
+  width: 28px;
+  cursor: pointer;
+}
+
+.menubar ul {
+  list-style: none;
+}
+
+.menubar ul li {
+  margin: 20px 0px;
+}
+
+.menubar ul li a {
+  text-decoration: none;
+  color: #000;
+  font-size: 18px;
+}
+
+.menubar ul li a:hover {
+  background-color: #FDC805;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+/* Responsive Behavior */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}

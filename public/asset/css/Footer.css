@@ -1,0 +1,132 @@
+.footer {
+    background-color: rgb(188, 188, 188);
+    border-top: 1px solid #e5e7eb;
+    font-family: Arial, sans-serif;
+    padding: 2rem 1rem;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Logo Section */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.footer-logo img {
+    width: 190px;
+    height: 60px;
+}
+
+/* Links Section */
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+/* Column of links */
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 150px;
+}
+
+.footer-column h4 {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.footer-column a {
+    text-decoration: none;
+    color: #111827;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-column a:hover {
+    color: #6b7280;
+}
+
+address p i {
+    margin-right: 8px;
+    color: #111827;
+}
+
+
+/* Bottom Section */
+.footer-bottom {
+    margin-top: 2rem;
+    border-top: 1px solid #111827;
+    padding-top: 1rem;
+    font-size: 0.9rem;
+    color: #111827;
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    color: #111827;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #6b7280;
+}
+
+/* ✅ Responsive Layouts */
+@media (max-width: 768px) {
+    .footer-links {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-column {
+        width: 100%;
+    }
+
+    .footer-logo {
+        justify-content: center;
+    }
+
+    .footer-container {
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 1.5rem 0.5rem;
+    }
+
+    .footer-column h4 {
+        font-size: 1.1rem;
+    }
+
+    .footer-column a {
+        font-size: 0.9rem;
+    }
+
+    .footer-logo img {
+        width: 160px;
+        height: auto;
+    }
+}
