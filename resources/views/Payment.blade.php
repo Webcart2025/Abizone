@@ -235,7 +235,7 @@
                 <input type="hidden" name="visa_entry" id="formVisaEntry">
                 
                 <div class="pay-btn">
-                    <button type="submit">Pay Now</button>
+                    <button id="rzp-button1">Pay</button>
                 </div>
             </form>
         </div>
@@ -306,4 +306,38 @@
         });
     </script>
 </body>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+var options = {
+    "key": "{{env('RAZORPAY_KEY')}}", // Enter the Key ID generated from the Dashboard
+    "amount": "${parseFloat(visaDetails.price).toFixed(2)} * 100", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Abizone", //your business name
+    "description": "Test Transaction",
+    
+    
+    "callback_url": "route('razorpay.callback')",
+    "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+        "name": "{{Auth::user()->name}}", //your customer's name
+        "email": "{{Auth::user()->email}}",
+        "contact": "9000090000" //Provide the customer's phone number for better conversion rates 
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+
+
+
 </html>

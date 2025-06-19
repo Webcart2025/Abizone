@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\VisaApplicationController;
 use App\Http\Controllers\ProfileController;
@@ -197,4 +198,9 @@ Route::middleware(['auth'])->group(function () {
     // Visa application routes
     Route::get('/profile/application/{id}', [VisaApplicationController::class, 'show'])
          ->name('visa.profile');
+
+
 });
+
+    Route::post("razorpay/callback",[Controller::class,'callback'])->name('razorpay.callback');
+
