@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('visa_payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('visa_application_id')->constrained('visa_applications')->onDelete('cascade');
+            $table->foreignId('visa_applicationss_id')->constrained('visa_applicationss')->onDelete('cascade');
             $table->string('visa_type');
             $table->decimal('amount', 10, 2);
             $table->integer('duration_days');
