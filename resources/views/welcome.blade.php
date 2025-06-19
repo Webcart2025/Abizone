@@ -88,7 +88,7 @@
     }
 
     .navbar-logo img {
-      height: 40px;
+      height: 60px;
       width: auto;
       max-width: 180px;
     }
@@ -103,6 +103,7 @@
       color: #333;
       font-weight: 500;
       transition: color 0.3s;
+      font-size: 20px;
     }
 
     .navbar-links a:hover {
@@ -135,6 +136,9 @@
     .lang-dropdown {
       position: relative;
     }
+     .lang-dropdown span{
+      font-size: 20px;
+     }
 
     .lang-btn {
       background: none;
@@ -266,8 +270,8 @@
 
     <nav class="navbar-links">
       <a href="#" class="active">Visa</a>
-      <a href="#">Travel Insurance</a>
-      <a href="#">Contact</a>
+      <a href="{{ route('AboutUs') }}">About us</a>
+      <a href="{{ route('Contactus') }}">Contact</a>
     </nav>
 
     <div class="navbar-right">
@@ -295,7 +299,7 @@
     
     <div id="mobileMenu" class="mobile-menu">
       <a href="#" class="active">Visa</a>
-      <a href="#">Travel Insurance</a>
+      <a href="#">About us</a>
       <a href="#">Contact</a>
       <a href="{{ route('login') }}">Sign In / Sign Up</a>
       <div class="lang-menu">

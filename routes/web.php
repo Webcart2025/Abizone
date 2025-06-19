@@ -15,6 +15,14 @@ Route::get('/', function () {
 Route::get('/Welcome', function () {
     return view('welcome');
 });
+
+Route::get('/about', function () {
+    return view('about');
+});
+
+Route::get('/contactus', function () {
+    return view('Contactus');
+})->name('Contactus');
 // Route::middleware("auth")->group(function () {
 //     Route::view("/",'welcome')->name('welcome');
 // });
@@ -66,8 +74,8 @@ Route::get('/Navbar', function () {
 // });
 
 Route::get('/AboutUs', function () {
-    return view('AboutUs');
-});
+    return view('About');
+})->name('AboutUs');
 
 Route::get('/ContactUs', function () {
     return view('ContactUs');
