@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OneVasco Visa Service</title>
+  <title>Abizone Visa Service</title>
   <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}" />
   
   
