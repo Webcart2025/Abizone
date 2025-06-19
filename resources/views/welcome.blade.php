@@ -10,7 +10,7 @@
 
 </head>
 <body>
-  <header>
+  {{-- <header>
     <div class="navbar">
       <div class="logo">
         <img src="{{ asset('asset/css/Images/NavLogo.png') }}" alt="NavLogo" />
@@ -64,7 +64,289 @@
         </select>
       </div>
     </div>
+  </header> --}}
+
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Navbar styles */
+    .navbar {
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 15px 5%;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .navbar-logo img {
+      height: 40px;
+      width: auto;
+      max-width: 180px;
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .navbar-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar-links a:hover {
+      color: #FDC805;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .signin-btn {
+      background-color: #FDC805;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .signin-btn:hover {
+      background-color: #e6b800;
+    }
+
+    .lang-dropdown {
+      position: relative;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500;
+      color: #333;
+      padding: 5px 10px;
+    }
+
+    .lang-menu {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      padding: 10px 0;
+      min-width: 120px;
+      display: none;
+      z-index: 100;
+    }
+
+    .lang-menu a {
+      display: block;
+      padding: 8px 15px;
+      text-decoration: none;
+      color: #333;
+      transition: background-color 0.3s;
+    }
+
+    .lang-menu a:hover {
+      background-color: #f5f5f5;
+    }
+
+    .lang-dropdown:hover .lang-menu {
+      display: block;
+    }
+
+    /* Mobile menu styles */
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background-color: white;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      padding: 12px 0;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #eee;
+    }
+
+    .mobile-menu .lang-menu {
+      position: static;
+      box-shadow: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+
+    .mobile-menu .lang-menu a {
+      border-bottom: none;
+      padding: 8px 0;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 992px) {
+      .navbar-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+      
+      .navbar-right {
+        display: none;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .navbar {
+        padding: 10px 15px;
+      }
+      
+      .navbar-logo img {
+        height: 35px;
+      }
+    }
+
+    /* Image fallback styling */
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    
+   
+  </style>
+</head>
+  <header class="navbar">
+    <div class="navbar-logo">
+      <!-- Updated image path with fallback -->
+      <img src="{{ asset('asset/css/Images/NavLogo.png') }}" alt="Abizone Logo" 
+           onerror="this.onerror=null; this.src='https://via.placeholder.com/180x40?text=Abizone+Logo'; this.style.border='none'">
+    </div>
+
+    <nav class="navbar-links">
+      <a href="#" class="active">Visa</a>
+      <a href="#">Travel Insurance</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <div class="navbar-right">
+      <a href="{{ route('login') }}" class="signin-btn">
+        <i class="fas fa-user"></i>
+        <span>Sign In / Sign Up</span>
+      </a>
+
+      <div class="lang-dropdown">
+        <button class="lang-btn">
+          <i class="fas fa-language"></i>
+          <span>English</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="lang-menu">
+          <a href="#">English</a>
+          <a href="#">Español</a>
+          <a href="#">Français</a>
+          <a href="#">Deutsch</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hamburger" id="hamburger">☰</div>
+    
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="#" class="active">Visa</a>
+      <a href="#">Travel Insurance</a>
+      <a href="#">Contact</a>
+      <a href="{{ route('login') }}">Sign In / Sign Up</a>
+      <div class="lang-menu">
+        <a href="#">English</a>
+        <a href="#">Español</a>
+        <a href="#">Français</a>
+        <a href="#">Deutsch</a>
+      </div>
+    </div>
   </header>
+
+  <!-- Rest of your content remains the same -->
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('active');
+    }
+    
+    hamburger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleMobileMenu();
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function() {
+      if (mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.remove('active');
+      }
+    });
+    
+    // Prevent closing when clicking inside menu
+    mobileMenu.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+    
+    // Language dropdown for mobile
+    const langButtons = document.querySelectorAll('.lang-btn');
+    langButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        if (window.innerWidth <= 992) {
+          e.preventDefault();
+          const menu = this.nextElementSibling;
+          menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        }
+  });
+});</script>
+
 
   <section class="hero" style="background: url('{{ asset('asset/css/Images/landingimg.jpg') }}') center center/cover no-repeat;">
     <div class="overlay"></div>
