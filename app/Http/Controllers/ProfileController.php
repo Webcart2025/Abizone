@@ -19,7 +19,7 @@ class ProfileController extends Controller
                                         ->latest()
                                         ->first();
         
-        return view('profile', compact('user', 'visaApplication'));
+        return view('user.Profile', compact('user', 'visaApplication'));
     }
 
     public function update(Request $request)

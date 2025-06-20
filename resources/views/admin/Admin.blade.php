@@ -1,3 +1,4 @@
+// File moved to: Abizone/resources/views/admin/Admin.blade.php
 
 <!DOCTYPE html>
 <html lang="en">

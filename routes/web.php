@@ -10,19 +10,19 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('user.welcome');
 });
 
 Route::get('/Welcome', function () {
-    return view('welcome');
+    return view('user.welcome');
 });
 
 Route::get('/about', function () {
-    return view('about');
+    return view('user.about');
 });
 
 Route::get('/contactus', function () {
-    return view('Contactus');
+    return view('user.Contactus');
 })->name('Contactus');
 // Route::middleware("auth")->group(function () {
 //     Route::view("/",'welcome')->name('welcome');
@@ -37,22 +37,22 @@ Route::post('logout', function () {
 })->name('logout');
 
 Route::get('/PrivacyPolicy', function () {
-    return view('PrivacyPolicy');
+    return view('user.PrivacyPolicy');
 });
 
 Route::get('/CookiePolicy', function () {
-    return view('CookiePolicy');
+    return view('user.CookiePolicy');
 });
 
 Route::get('/RefundPolicy', function () {
-    return view('RefundPolicy');
+    return view('user.RefundPolicy');
 });
 
 Route::get('/SignUp', function () {
-    return view('SignUp');
+    return view('user.SignUp');
 });
 Route::get('/Login', function () {
-    return view('Login');
+    return view('user.Login');
 });
 
 Route::get('/Document', function () {
@@ -63,7 +63,7 @@ Route::get('/Navbar', function () {
     // return view('Navbar');
     $user = Auth::user();
     
-    return view('Navbar', compact('user'));
+    return view('user.Navbar', compact('user'));
 });
 
 // Route::get('/Profile', function () {
@@ -75,19 +75,19 @@ Route::get('/Navbar', function () {
 // });
 
 Route::get('/AboutUs', function () {
-    return view('About');
+    return view('user.About');
 })->name('AboutUs');
 
 Route::get('/ContactUs', function () {
-    return view('ContactUs');
+    return view('user.ContactUs');
 });
 
 Route::get('/TotalBill', function () {
-    return view('TotalBill');
+    return view('user.TotalBill');
 });
 
 Route::get('/Form1', function () {
-    return view('Form1');
+    return view('user.Form1');
 })->name('Form1');
 
 Route::get('/Form', function () {
@@ -96,63 +96,63 @@ Route::get('/Form', function () {
 
 
 Route::get('/AgentRegistration', function () {
-    return view('AgentRegistration');
+    return view('agent.AgentRegistration');
 });
 
 Route::get('/AgentDashboard', function () {
-    return view('Dashboard');
+    return view('agent.Dashboard');
 });
 Route::get('/AgentUser', function () {
-    return view('AgentUser');
+    return view('agent.AgentUser');
 });
 Route::get('/a_reg', function () {
-    return view('AgentVisaApplication');
+    return view('agent.AgentVisaApplication');
 });
 
 Route::get('/Agentform', function () {
-    return view('VisaApplicationFormMultipleUsers');
+    return view('agent.VisaApplicationFormMultipleUsers');
 });
 
 Route::get('/wallet', function () {
-    return view('AgentWalletManagement');
+    return view('agent.AgentWalletManagement');
 });
 
 Route::get('/VisaApplicationDetails', function () {
-    return view('VisaApplicationDetails');
+    return view('agent.VisaApplicationDetails');
 });
 Route::get('/applicant', function () {
-    return view('Applicant'); 
+    return view('agent.Applicant'); 
 });
 Route::get('/AgentProfile', function () {
-    return view('AgentProfile');
+    return view('agent.AgentProfile');
 });
 // Route::get('/document', function () {
 //     return view('document');
 // });
 
 Route::get('/admin/login', function () {
-    return view('Admin');
+    return view('admin.Admin');
 });
 Route::get('/Dashboard', function () {
-    return view('Admin_Dashboard');
+    return view('admin.Admin_Dashboard');
 });
 
 Route::get('/admin_user', function () {
-    return view('Admiin_user');
+    return view('admin.Admiin_user');
 });
 
 Route::get('/admin_agent', function () {
-    return view('Admin_ Agents');
+    return view('admin.Admin_ Agents');
 });
 
 Route::get('/AgentDetails', function () {
-    return view('Admin_AgentDetails');
+    return view('admin.Admin_AgentDetails');
 });
 Route::get('/calender', function () {
-    return view('calender'); 
+    return view('user.calender'); 
 });
 Route::get('/Payment',function(){
-    return view('Payment');
+    return view('user.Payment');
 })->name('Payment');
 
 

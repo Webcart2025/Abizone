@@ -65,7 +65,7 @@
   </style>
 </head>
 <body>
-@include('navbar2')
+@include('user.Navbar2')
 <section style="background-color: #eee;">
   <div class="container py-5">
     <div class="row">

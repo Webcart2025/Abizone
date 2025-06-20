@@ -78,7 +78,7 @@
     
 </head>
 <body>
-@include('navbar2')
+@include('user.Navbar2')
     <div class="container">
         <!-- <img src="{{asset('asset/css/Images/AirplaneTakeOff.png')}}" alt="UAE Visa" class="visa-image"> -->
         

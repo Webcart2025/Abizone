@@ -10,7 +10,7 @@
 </head>
 
     
-    @include('navbar2')
+    @include('user.Navbar2')
     <div class="main-container">
         <div class="left-section">
             <div class="form-container">

@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="{{ asset('asset/css/about.css') }}" />
-  <title>About Us - Abizone</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('asset/css/contactus.css') }}" />
+  <title>Contact Us</title>
    <style>
-
-
     /* Reset and base styles */
     * {
       margin: 0;
@@ -199,126 +198,96 @@
       max-width: 100%;
       height: auto;
     }
-    
-   
   </style>
 </head>
 <body>
- <header class="navbar">
-    <div class="navbar-logo">
-      <!-- Updated image path with fallback -->
-      <img src="{{ asset('asset/css/Images/NavLogo.png') }}" alt="Abizone Logo" 
-           onerror="this.onerror=null; this.src='https://via.placeholder.com/180x40?text=Abizone+Logo'; this.style.border='none'">
+    @include('user.Navbar2')
+
+  <section class="contact-container">
+    <div class="contact-header">
+      <h2>We are here for <span class="highlight">you!</span></h2>
+      <select>
+        <option>Select Option</option>
+      </select>
     </div>
 
-    <nav class="navbar-links">
-      <a href="#" class="active">Visa</a>
-      <a href="#">About us</a>
-      <a href="#">Contact</a>
-    </nav>
-
-    <div class="navbar-right">
-      <a href="{{ route('login') }}" class="signin-btn">
-        <i class="fas fa-user"></i>
-        <span>Sign In / Sign Up</span>
-      </a>
-
-      <div class="lang-dropdown">
-        <button class="lang-btn">
-          <i class="fas fa-language"></i>
-          <span>English</span>
-          <i class="fas fa-chevron-down"></i>
-        </button>
-        <div class="lang-menu">
-          <a href="#">English</a>
-          <a href="#">Español</a>
-          <a href="#">Français</a>
-          <a href="#">Deutsch</a>
+    <form class="contact-form" method="POST" action="#">
+      <h3>Contact Form</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>First Name*</label>
+          <input type="text" placeholder="Enter Your First Name">
+        </div>
+        <div class="form-group">
+          <label>Last Name*</label>
+          <input type="text" placeholder="Enter Your Last Name">
+        </div>
+        <div class="form-group mobile-group">
+          <label>Mobile Number*</label>
+          <div class="mobile-wrapper">
+            <select><option>+91</option></select>
+            <input type="text" placeholder="Enter Number">
+          </div>
+        </div>
+        <div class="form-group full-width radio-group">
+          <label>Are you an existing OneVasco customer*</label>
+          <label><input type="radio" name="existing" /> Yes</label>
+          <label><input type="radio" name="existing" checked /> No</label>
+        </div>
+        <div class="form-group">
+          <label>Email ID*</label>
+          <input type="email" placeholder="Enter Email ID">
+        </div>
+        <div class="form-group">
+          <label>Your resident country*</label>
+          <select>
+            <option>Select Country</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Enquiry Type*</label>
+          <select>
+            <option>Select Enquiry Type</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>How can we assist you?*</label>
+          <textarea placeholder="Enter Your Description"></textarea>
         </div>
       </div>
-    </div>
 
-    <div class="hamburger" id="hamburger">☰</div>
-    
-    <div id="mobileMenu" class="mobile-menu">
-      <a href="#" class="active">Visa</a>
-      <a href="#">About us</a>
-      <a href="#">Contact</a>
-      <a href="{{ route('login') }}">Sign In / Sign Up</a>
-      <div class="lang-menu">
-        <a href="#">English</a>
-        <a href="#">Español</a>
-        <a href="#">Français</a>
-        <a href="#">Deutsch</a>
+      <div class="captcha-box">
+        <div class="captcha-left">
+          <input type="checkbox" id="robot-check">
+          <label for="robot-check">I'm not a robot</label>
+        </div>
+        <div class="captcha-right">
+          <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="captcha">
+          <div class="captcha-info">
+            <div>reCAPTCHA</div>
+            <small>Privacy - Terms</small>
+          </div>
+        </div>
       </div>
-    </div>
-  </header>
 
-  <section class="about-section">
-    <div class="about-container">
-      <div class="about-text">
-        <h1>We are obsessed with<br>delivering exceptional<br>experiences to you.</h1>
-        <p>Stay connected when you travel with us</p>
+      <div class="submit-container">
+        <button class="submit-btn">Submit</button>
       </div>
-      <div class="about-image">
-        <img src="{{ asset('asset/css/Images/about-banner.webp') }}" alt="Travel Image" />
-      </div>
-    </div>
+    </form>
   </section>
 
-  <section class="about-oneseco">
-    <div class="about-title">
-      <h2>About <span>Abizone</span></h2>
+  <section class="feedback-section">
+    <div class="opinion-box">
+      <h2>We Value your Opinion</h2>
       <p>
-        Since 2012, OneVasco has pioneered revolutionizing the visa concierge services industry.
-        Our deep understanding of visa complexities enables us to provide a streamlined, hassle-free experience.
-        With expertise and a trained team, we stay updated with global regulations, offering accurate information
-        and tailored solutions to meet individual needs. We believe obtaining a visa shouldn't be daunting, so
-        we invest in state-of-the-art technology for a simplified process and timely updates, eliminating stress
-        and uncertainty. Experience OneVasco's commitment to excellence and personalized attention as we make visa
-        applications a seamless and worry-free endeavor.
+        Do share your feedback with us by clicking here and filling up the feedback form. 
+        <a href="#" class="feedback-link">Share Feedback</a>
       </p>
     </div>
-
-    <section class="benefits-section">
-      <div class="benefits-container">
-        @foreach([
-          ['One-stop-icon.svg', 'One-Stop Shop', 'Simplify your visa journey with our all-in-one Visa Concierge Services.'],
-          ['partnership-icon.svg', 'Partnerships', 'Strong alliances with renowned travel brands for enhanced travel experience.'],
-          ['presense-icon.svg', 'Presence', 'Across key global regions of Middle East & North Africa, Europe & Asia Pacific'],
-          ['smart-visa.svg', 'Smart VisaTech', 'Tailored to Your Journey, Crafted for You'],
-          ['personalize-experience.svg', 'Personalised Experience', 'Tailored to Your Journey, Crafted for You'],
-          ['trusted-icon.svg', 'Trusted Support', 'With offices and a strong network of partners across the globe, OneVasco extends on-site support in the destination country']
-        ] as $benefit)
-        <div class="benefit-item">
-          <div class="icon">
-            <img src="{{ asset('asset/css/Images/One-stop-icon.svg') }}" alt="{{ $benefit[1] }} Icon" onerror="this.onerror=null; this.src='https://via.placeholder.com/50?text=Icon'; this.style.border='none'">
-          </div>
-          <h3>{{ $benefit[1] }}</h3>
-          <p>{{ $benefit[2] }}</p>
-        </div>
-        @endforeach
-      </div>
-
-      <div class="presence-text">
-        <h2>Our <span>global</span> presence</h2>
-        <p>
-          Headquartered in Dubai, United Arab Emirates, our offices are present across the key regions of Europe, Asia Pacific, Middle East and North Africa (MENA)
-        </p>
-      </div>
-    </section>
   </section>
 
-  <section class="office-info">
-    <p>Head Office</p>
-    <h2>ABIZONE WORLDWIDE DMCC</h2>
-    <p>
-      3101-B, Jumeirah Business Center 1, Cluster G, JLT,<br>
-      P.O. Box 113345, Dubai, UAE
-    </p>
-  </section>
 </body>
- <footer class="footer">
+<footer class="footer">
     <div class="top-shape"></div>
     <div class="footer-content">
       <div class="footer-logo">

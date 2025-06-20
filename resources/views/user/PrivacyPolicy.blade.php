@@ -87,15 +87,15 @@
                 <li>Biometrics such as your fingerprint</li>
                 <li>Information about your criminal history</li>
             </ul>
-            <p>This list is not exhaustive and varies depending on the relevant government’s requirements and the type of visa.</p>
+            <p>This list is not exhaustive and varies depending on the relevant government's requirements and the type of visa.</p>
             <p>When you make use of our Wi-Fi/hotspot services provided by us at venues, some information is collected automatically, such as MAC ID, timestamps of connections, amount of traffic, and logout reason type.</p>
         </section>
 
         <section>
             <h2>IV. THE LAWFUL BASIS FOR PROCESSING YOUR PERSONAL DATA</h2>
-            <p>If the data protection law in your country of residence allows, we will use the “performance of a contract” as the lawful basis for processing your personal data.</p>
+            <p>If the data protection law in your country of residence allows, we will use the "performance of a contract" as the lawful basis for processing your personal data.</p>
             <p>This means that when you purchase a service from us, you enter into a contract with us to receive that service. We cannot deliver a service to you without using personal data from you.</p>
-            <p>If the data protection law does not allow us to use “performance of a contract” as a lawful basis, we will ask for your consent for processing your personal data.</p>
+            <p>If the data protection law does not allow us to use "performance of a contract" as a lawful basis, we will ask for your consent for processing your personal data.</p>
             <p>To the extent that the legal basis for our processing of your personal information is consent, you can withdraw your consent at any time. However, without your consent, we cannot continue to process the requested services.</p>
             <p>We will not contact you for marketing purposes unless you have given us explicit permission to do so.</p>
         </section>
@@ -114,7 +114,7 @@
             <p><strong>For marketing purposes.</strong> You receive tips and offers that are appropriate for you and can benefit you as a client. We use personal data that we received from you, for example, when you requested information about sustainable products and services in the past, or because you are already a client of ours. In this context, we may also use personal data that we received from other sources, such as public data sources and marketing agencies. We only do this if it is permitted by law.</p>
             <p>If you visit our office, we may capture images of you on camera. This is necessary to prevent burglary, theft, and vandalism and to ensure the safety of our clients and employees.</p>
             <p><strong>Flight & Hotel booking.</strong> For airlines booking and hotel accommodation, we may request your personal details as required by the airline or the hotel. This includes your name, passport information, address, email address, phone number, and date of birth.</p>
-            <p>We process your personal data only for the purpose/s it was collected for. If we plan to use personal data for a different purpose, we will inform you via this Privacy Notice. Please check this page regularly to ensure that you’re happy with any changes.</p>
+            <p>We process your personal data only for the purpose/s it was collected for. If we plan to use personal data for a different purpose, we will inform you via this Privacy Notice. Please check this page regularly to ensure that you're happy with any changes.</p>
         </section>
 
         <section>

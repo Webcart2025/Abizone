@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     public function logins(){
-        return view('welcome');//add new index page
+        return view('user.welcome'); // add new index page
     }
     // public function admin(){
     //     return view('Admin');
@@ -22,7 +22,7 @@ class AuthController extends Controller
         return view('Profile', compact('user', 'visaApplication'));
     }
     public function login(){
-        return view('Login');
+        return view('user.Login');
     }
     public function loginPost(Request $request)
     {
@@ -47,7 +47,7 @@ class AuthController extends Controller
         }
     }
     public function register(){
-        return view('SignUp');
+        return view('user.SignUp');
     }
     public function registerPost(Request $request)
     {

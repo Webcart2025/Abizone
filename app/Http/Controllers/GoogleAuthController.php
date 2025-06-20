@@ -28,12 +28,12 @@ class GoogleAuthController extends Controller
                 ]);
                 Auth::login($new_user);
 
-                return redirect()->intended('Welcome');
+                return redirect()->intended('user.Welcome');
 
             }
             else{
                 Auth::login($user);
-                return redirect()->intended('Signup'); 
+                return redirect()->intended('user.Signup'); 
             }
         }
         catch(\Throwable $th){
