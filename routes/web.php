@@ -46,7 +46,7 @@ Route::post('logout', function () {
 
 Route::get('/PrivacyPolicy', function () {
     return view('user.PrivacyPolicy');
-});
+}); 
 
 Route::get('/CookiePolicy', function () {
     return view('user.CookiePolicy');

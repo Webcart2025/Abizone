@@ -6,6 +6,8 @@
   <title>Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     ::-webkit-scrollbar {
       width: 6px;
@@ -44,72 +46,7 @@
 
     <div class="flex flex-1 overflow-hidden flex-col md:flex-row">
       <!-- Sidebar -->
-      <nav id="sidebar"
-        class="hidden md:flex flex-col bg-gray-50 border-t border-gray-200 md:border-r md:border-t-0 w-full md:w-56 min-w-0 md:min-w-[14rem] overflow-x-auto md:overflow-y-auto text-xs text-gray-700">
-        <ul class="flex flex-col px-3 py-2 md:py-4 space-y-1 whitespace-nowrap md:whitespace-normal">
-          <li>
-            <a href="{{ url('Dashboard') }}" class="flex items-center gap-2 px-2 py-1 rounded text-blue-600 font-semibold">
-              <i class="fas fa-home text-xs"></i> Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="{{ url('admin_user') }}" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
-              <i class="fas fa-file-alt text-xs"></i> User/Applicant
-            </a>
-          </li>
-          <li>
-            <a href="{{ url('admin_agent') }}" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
-              <i class="fas fa-shopping-cart text-xs"></i> Agents_Applicant's
-            </a>
-          </li>
-          <li>
-            <a href="{{ url('AgentDetails') }}"  class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
-              <i class="fas fa-user-friends text-xs"></i> Agent_Detail's
-            </a>
-          </li>
-          <!-- <li>
-            <a href="#" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
-              <i class="fas fa-chart-bar text-xs"></i> Reports
-            </a>
-          </li>
-          <li>
-            <a href="#" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
-              <i class="fas fa-layer-group text-xs"></i> Integrations
-            </a>
-          </li> -->
-        </ul>
-
-        <div class="px-3 mt-6 mb-2 text-gray-400 text-[9px] font-semibold tracking-wider select-none flex items-center justify-between">
-          <!-- <span>SAVED REPORTS</span>
-          <button type="button" aria-label="Add new report"
-            class="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-gray-400 rounded">
-            <i class="fas fa-plus text-[10px]"></i>
-          </button>
-        </div>
-
-        <ul class="flex flex-col px-3 space-y-1 text-xs text-gray-700 whitespace-nowrap md:whitespace-normal">
-          <li>
-            <a href="#" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100 font-semibold">
-              <i class="fas fa-file-alt text-xs"></i> Current month
-            </a>
-          </li>
-          <li>
-            <a href="#" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
-              <i class="fas fa-file-alt text-xs"></i> Last quarter
-            </a>
-          </li>
-          <li>
-            <a href="#" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
-              <i class="fas fa-file-alt text-xs"></i> Social engagement
-            </a>
-          </li>
-          <li>
-            <a href="#" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
-              <i class="fas fa-file-alt text-xs"></i> Year-end sale
-            </a>
-          </li> -->
-        </ul>
-      </nav>
+      @include('admin.sidebar')
 
       <!-- Main content -->
       <main class="flex-1 overflow-auto p-4 sm:p-6">
