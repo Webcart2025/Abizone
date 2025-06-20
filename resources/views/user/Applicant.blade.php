@@ -33,7 +33,7 @@
     </div>
   </main>
 
-  @include('Footer')
+  @include('user.Footer')
 
   <script>
     const applications = [

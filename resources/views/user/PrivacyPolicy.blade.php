@@ -4,10 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Privacy Notice</title>
+  <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="{{ asset('asset/css/PrivacyPolicy.css') }}">
+  
 </head>
 <body>
+  @include('user.Navbar2')
   <div class="privacy-wrapper">
     <h1>Privacy Notice <span class="highlight">Abizone</span></h1>
 
@@ -112,5 +115,6 @@
       <li>Only for the purposes listed; any change will be communicated in updates</li>
     </ul>
   </div>
+  @include('user.Footer')
 </body>
 </html>

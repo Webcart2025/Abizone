@@ -82,5 +82,6 @@
             </div>
         </form>
     </div>
+    <!-- @include('user.Footer') -->
 </body>
 </html> 

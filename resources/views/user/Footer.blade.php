@@ -10,21 +10,21 @@
       <div class="footer-column">
         <h4>Company</h4>
         <ul>
-          <li><a href="#">About Us</a></li>
+          <li><a href="{{ route('AboutUs') }}">About Us</a></li>
           <li><a href="#">Our Partners</a></li>
           <li><a href="#">Careers</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">FAQs</a></li>
+          <li><a href="{{ route('Contactus') }}">Contact Us</a></li>
+          <li><a href="{{ url('/FAQs') }}">FAQs</a></li>
           <li><a href="#">Blog</a></li>
         </ul>
       </div>
       <div class="footer-column">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="#">Terms and Conditions</a></li>
-          <li><a href="#">Cookie Policy</a></li>
-          <li><a href="#">Refund Policy</a></li>
-          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="{{ url('/TermsandConditions') }}">Terms and Conditions</a></li>
+          <li><a href="{{ url('/CookiePolicy') }}">Cookie Policy</a></li>
+          <li><a href="{{ url('/RefundPolicy') }}">Refund Policy</a></li>
+          <li><a href="{{ url('/PrivacyPolicy') }}">Privacy Policy</a></li>
         </ul>
       </div>
     </div>
