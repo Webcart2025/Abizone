@@ -21,6 +21,14 @@ Route::get('/about', function () {
     return view('user.about');
 });
 
+Route::get('/FAQs', function () {
+    return view('user.FAQs');
+});
+
+Route::get('/TermsandConditions', function () {
+    return view('user.Termsandconditions');
+});
+
 Route::get('/contactus', function () {
     return view('user.Contactus');
 })->name('Contactus');
