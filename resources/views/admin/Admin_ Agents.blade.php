@@ -26,21 +26,8 @@
   
     
   <div class="flex flex-col min-h-screen">
-    <!-- Top nav -->
-    <header class="flex items-center justify-between bg-gray-900 text-gray-200 px-4 sm:px-6 h-10 select-none">
-      <div class="text-sm font-normal">ABIZON</div>
-      <div class="flex-1 px-4">
-        <input type="search" aria-label="Search" placeholder="Search"
-          class="w-full bg-gray-900 placeholder-gray-600 text-gray-600 text-sm border-none focus:ring-0 focus:outline-none" />
-      </div>
-      <div class="flex items-center gap-3">
-        <!-- Toggle button for mobile -->
-        <button class="md:hidden text-gray-400 hover:text-white" onclick="toggleSidebar()">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="text-xs font-normal whitespace-nowrap">Sign out</div>
-      </div>
-    </header>
+    <!-- Include Top Navigation -->
+    @include('admin.topnav')
 
     <div class="flex flex-1 overflow-hidden flex-col md:flex-row">
       <!-- Sidebar -->

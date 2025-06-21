@@ -13,7 +13,27 @@
         </li>
         <li>
             <a href="{{ url('admin_user') }}" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
-                <i class="fas fa-file-alt text-xs"></i> User/Applicant
+                <i class="fas fa-file-alt text-xs"></i> User
+            </a>
+        </li>
+        <li>
+            <a href="{{ url('user_application') }}" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
+                <i class="fas fa-passport text-xs"></i> User Applicant
+            </a>
+        </li>
+        <li>
+            <a href="{{ url('user_contact') }}" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
+                <i class="fas fa-envelope text-xs"></i> User Contact
+            </a>
+        </li>
+        <li>
+            <a href="{{ url('user_transaction') }}" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
+                <i class="fas fa-exchange-alt text-xs"></i> User Transaction
+            </a>
+        </li>
+        <li>
+            <a href="{{ url('user_review') }}" class="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100">
+                <i class="fas fa-star text-xs"></i> User Review
             </a>
         </li>
         <li>
