@@ -6,8 +6,11 @@
   <title>Cookie Disclosure</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
    <link rel="stylesheet" href="{{ asset('asset/css/CookiePolicy.css') }}">
+>
+   <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}" />
 </head>
 <body>
+    @include('user.Navbar2')
   <div class="cookie-container">
     <h1>Cookie <span class="highlight">Disclosure</span></h1>
     <p>
@@ -15,7 +18,7 @@
       By using cookies, we are able to provide you with a better experience and to improve this Website by better 
       understanding how you use it. Please read this Cookie Disclosure Notice carefully and ensure that you understand it. 
       Your acceptance of our Cookie Disclosure Notice is deemed to occur if you continue using this Website or when you 
-      click the “Accept Cookies” button on our Cookie banner. If you do not agree to our Cookie Disclosure Notice, 
+      click the "Accept Cookies" button on our Cookie banner. If you do not agree to our Cookie Disclosure Notice, 
       please stop using this Website immediately.
     </p>
 
@@ -74,7 +77,7 @@
     </p>
 
     <p>
-      You can change your Cookie Preferences by clicking on the “Cookie Settings” icon below.
+      You can change your Cookie Preferences by clicking on the "Cookie Settings" icon below.
     </p>
 
     <h2>Changes to this Cookie Policy</h2>
@@ -82,5 +85,6 @@
       We may alter this Cookie Policy at any time. Any such changes will become binding on you on your first use of this Website after the changes have been made. You are therefore advised to check this page from time to time. Last update: <strong>07 April 2023</strong>
     </p>
   </div>
+  @include('user.Footer')
 </body>
 </html>

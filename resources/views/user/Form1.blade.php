@@ -693,5 +693,7 @@ function extractDetails(text, type) {
     
 </script>
 
+@include('user.Footer')
+
 </body>
 </html> 

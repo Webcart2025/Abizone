@@ -11,10 +11,10 @@ class AdminAuthController extends Controller
 {
     public function adminLoginForm()
     {
-        return view('Admin');
+        return view('admin.Admin');
     }
     public function adminlogins(){
-        return view('Admin_Dashboard');
+        return view('admin.Admin_Dashboard');
     }
 
     public function adminPost(Request $request)

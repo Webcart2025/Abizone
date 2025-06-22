@@ -6,6 +6,8 @@
   <title>Terms of Use</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
  <link rel="stylesheet" href="{{ asset('asset/css/Termsandconditions.css') }}">
+ <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}" />>
+ <!-- <link rel="stylesheet" href="{{ asset('asset/css/Footer.css') }}">  -->
 </head>
 <body>
     @include('user.Navbar2')

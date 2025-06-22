@@ -46,7 +46,7 @@ Route::post('logout', function () {
 
 Route::get('/PrivacyPolicy', function () {
     return view('user.PrivacyPolicy');
-});
+}); 
 
 Route::get('/CookiePolicy', function () {
     return view('user.CookiePolicy');
@@ -147,6 +147,22 @@ Route::get('/Dashboard', function () {
 
 Route::get('/admin_user', function () {
     return view('admin.Admiin_user');
+});
+
+Route::get('/user_application', function () {
+    return view('admin.user_application');
+});
+
+Route::get('/user_contact', function () {
+    return view('admin.user_contact');
+});
+
+Route::get('/user_transaction', function () {
+    return view('admin.user_transaction');
+});
+
+Route::get('/user_review', function () {
+    return view('admin.user_review');
 });
 
 Route::get('/admin_agent', function () {
