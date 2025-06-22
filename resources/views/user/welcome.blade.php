@@ -318,7 +318,7 @@
 
       <div class="powered-by">Power by <span class="trustpilot">Trustpilot</span></div>
 
-      <div class="testimonials">
+      {{-- <div class="testimonials">
         <div class="testimonial-card">
           <div class="user-icon">
             <img src="{{ asset('asset/css/Images/Women2.png') }}" alt="User Icon" />
@@ -348,7 +348,159 @@
             </div>
           </div>
         </div>
+      </div> --}}
+
+
+{{-- <div class="review-container">
+  <h2>Review Form</h2>
+
+  @if(session('success'))
+    <div class="success-msg">{{ session('success') }}</div>
+  @endif
+
+  <form method="POST" action="">
+    @csrf
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="rating">Rating</label>
+      <div class="stars" id="star-container">
+        @for ($i = 1; $i <= 5; $i++)
+          <span class="star" data-value="{{ $i }}">★</span>
+        @endfor
       </div>
+      
+      <input type="hidden" name="rating" id="rating" required>
+    </div>
+
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea name="message" id="message" required></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+</div>
+
+<script>
+  const stars = document.querySelectorAll('.star');
+  const ratingInput = document.getElementById('rating');
+
+  stars.forEach(star => {
+    star.addEventListener('click', function () {
+      const rating = this.getAttribute('data-value');
+      ratingInput.value = rating;
+
+      stars.forEach(s => {
+        s.style.color = (s.getAttribute('data-value') <= rating) ? '#ffc107' : '#ddd';
+      });
+    });
+  });
+</script> --}}
+
+
+
+
+<div class="review-main-container">
+
+  <!-- Left: Review Form -->
+  <div class="review-container">
+    <h2>Submit Your Review</h2>
+
+    <div class="success-msg" style="display: none;">Thank you for your feedback!</div>
+
+    <form onsubmit="submitForm(event)">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="rating">Rating</label>
+        <div class="stars" id="star-container">
+          <span class="star" data-value="1">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="5">★</span>
+        </div>
+        <input type="hidden" name="rating" id="rating" required />
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea name="message" id="message" required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+  </div>
+
+  <!-- Right: Nearby Reviews -->
+  <div class="nearby-reviews-container">
+    <h2> Reviews</h2>
+
+    <div class="review-card">
+      <div class="review-header">
+        <h4>Priya Sharma</h4>
+        <div class="stars">★★★★☆</div>
+      </div>
+      <p class="review-msg">Great service! Got my visa processed within a week.</p>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <h4>Rahul Mehta</h4>
+        <div class="stars">★★★★★</div>
+      </div>
+      <p class="review-msg">Smooth process and excellent customer service.</p>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <h4>Anjali Patel</h4>
+        <div class="stars">★★★☆☆</div>
+      </div>
+      <p class="review-msg">Average experience, could improve processing speed.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  const stars = document.querySelectorAll('.star');
+  const ratingInput = document.getElementById('rating');
+  const successMsg = document.querySelector('.success-msg');
+
+  stars.forEach(star => {
+    star.addEventListener('click', function () {
+      const rating = this.getAttribute('data-value');
+      ratingInput.value = rating;
+
+      stars.forEach(s => {
+        s.style.color = (s.getAttribute('data-value') <= rating) ? '#ffc107' : '#ddd';
+      });
+    });
+  });
+
+  function submitForm(event) {
+    event.preventDefault();
+    successMsg.style.display = 'block';
+    setTimeout(() => {
+      successMsg.style.display = 'none';
+    }, 3000);
+    event.target.reset();
+    ratingInput.value = '';
+    stars.forEach(star => star.style.color = '#ddd');
+  }
+</script>
+
+
     </div>
   </section>
 
