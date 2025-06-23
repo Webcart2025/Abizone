@@ -42,7 +42,7 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Invalid email or password');
             
         } catch (\Exception $e) {
-            \Log::error('Login error: ' . $e->getMessage());
+            Log::error('Login error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Login failed: ' . $e->getMessage());
         }
     }

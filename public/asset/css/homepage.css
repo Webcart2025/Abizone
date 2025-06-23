@@ -241,30 +241,13 @@
     text-transform: lowercase;
   }
   
-  /* .arrow-down {
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #FDC805;
-  } */
-  
   .visa-card.active {
-    /* background: #FDC805; */
     color: black;
   }
   
   .visa-card.active .corner-label {
     background: white;
     color: black;
-  }
-  
-  .visa-card.active .corner-label {
-    background: white;
   }
   
   .visa-card.active hr {
@@ -285,7 +268,7 @@
   
   hr {
     border: none;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid black;
   }
   
   .visa-icons{
@@ -294,11 +277,6 @@
   
   .visa-footer{
     color: #000;
-  }
-  
-  hr {
-    border: none;
-    border-top: 1px solid black;
   }
   
   .explore-btn {
@@ -319,21 +297,149 @@
     transform: translateY(-2px);
   }
   
+  /* Responsive Design for Visa Container */
+  @media (max-width: 1200px) {
+    .visa-container {
+      max-width: 1000px;
+      gap: 18px;
+    }
+    
+    .visa-card {
+      width: 260px;
+      height: 240px;
+      flex: 0 1 260px;
+    }
+  }
   
+  @media (max-width: 1024px) {
+    .visa-container {
+      max-width: 900px;
+      gap: 15px;
+      padding: 0 15px;
+    }
+    
+    .visa-card {
+      width: 240px;
+      height: 230px;
+      flex: 0 1 240px;
+      padding: 18px;
+    }
+    
+    .visa-card h2 {
+      font-size: 16px;
+    }
+    
+    .visa-icons {
+      font-size: 13px;
+    }
+    
+    .visa-footer {
+      font-size: 15px;
+    }
+  }
   
-  /* Responsive: stack cards vertically on small screens */
   @media (max-width: 768px) {
     .visa-container {
       flex-direction: column;
       align-items: center;
+      gap: 20px;
+      padding: 0 15px;
+      margin-top: 40px;
     }
   
     .visa-card {
-      /* width: 100%; */
-      max-width: 90%; /* or set fixed like 350px if preferred */
+      width: 100%;
+      max-width: 350px;
+      height: 220px;
+      flex: none;
+      padding: 20px;
+    }
+    
+    .visa-card h2 {
+      font-size: 17px;
+    }
+    
+    .visa-icons {
+      font-size: 14px;
+    }
+    
+    .visa-footer {
+      font-size: 16px;
     }
   }
   
+  @media (max-width: 480px) {
+    .visa-container {
+      padding: 0 10px;
+      gap: 15px;
+      margin-top: 30px;
+    }
+  
+    .visa-card {
+      max-width: 100%;
+      height: 200px;
+      padding: 15px;
+    }
+    
+    .visa-card h2 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    
+    .visa-icons {
+      font-size: 13px;
+      padding: 8px 0;
+    }
+    
+    .visa-footer {
+      font-size: 15px;
+      margin-top: 8px;
+    }
+    
+    .corner-label {
+      font-size: 12px;
+      padding: 4px 12px;
+    }
+    
+    .explore-btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .visa-container {
+      padding: 0 8px;
+      gap: 12px;
+    }
+  
+    .visa-card {
+      height: 180px;
+      padding: 12px;
+    }
+    
+    .visa-card h2 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+    
+    .visa-icons {
+      font-size: 12px;
+      padding: 6px 0;
+    }
+    
+    .visa-footer {
+      font-size: 14px;
+      margin-top: 6px;
+    }
+    
+    .explore-btn {
+      padding: 6px 12px;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+  }
   
   .concierge-section {
     background: linear-gradient(90deg, #000000,#FDC805 , white);
@@ -1289,5 +1395,324 @@
     scroll-margin-top: 80px; /* Ensures the section isn't hidden under the fixed navbar */
     padding: 40px 0;
   }
+
+
+
+  /*review form*/
+
+  .review-container, .nearby-reviews-container {
+    flex: 1 1 0;
+    width: 485px;
+    height: 450px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+  }
   
+  .review-container {
+    justify-content: flex-end;
+  }
   
+  .review-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .review-container .form-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  
+  .success-msg {
+    color: green;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+  }
+  
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .stars {
+    display: flex;
+    gap: 6px;
+    font-size: 28px;
+    cursor: pointer;
+  }
+  
+  .star {
+    color: #ddd;
+    transition: color 0.2s;
+  }
+  
+  .star.active {
+    color: #ffc107;
+  }
+  
+  .submit-btn {
+    background-color: #ffc107;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background-color: #ffcd39;
+  }
+  
+  @media (max-width: 600px) {
+    .review-container {
+      padding: 15px;
+    }
+    .stars {
+      font-size: 24px;
+    }
+  }
+  
+  .stars {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 32px;
+    justify-content: flex-start;
+  }
+  
+  .star {
+    color: #ddd;
+    transition: color 0.2s;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    color: black;
+    text-align: left;
+  }
+  
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .success-msg {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .submit-btn {
+    background-color: #ffc107;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .review-main-container {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+    height: 450px;
+    margin: auto;
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+  
+  .review-card {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+  }
+  
+  .review-card:last-child {
+    border-bottom: none;
+  }
+  
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .review-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .review-card .stars {
+    font-size: 1.1rem;
+    color: #ffc107;
+  }
+  
+  .review-msg {
+    margin: 0;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  /* ✅ Responsive Stack */
+  @media (max-width: 1024px) {
+    .review-main-container {
+      max-width: 90%;
+      gap: 20px;
+      height: 450px;
+    }
+    
+    .review-container, .nearby-reviews-container {
+      min-width: 280px;
+      padding: 20px;
+      height: 450px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .review-main-container {
+      flex-direction: column;
+      max-width: 95%;
+      gap: 20px;
+      padding: 0 15px;
+      height: auto;
+    }
+    
+    .review-container, .nearby-reviews-container {
+      flex: 1 1 100%;
+      min-width: 100%;
+      padding: 20px;
+      width: 100%;
+      height: 400px;
+    }
+    
+    .review-container h2,
+    .nearby-reviews-container h2 {
+      font-size: 1.5rem;
+    }
+    
+    .form-group label {
+      font-size: 14px;
+    }
+    
+    input[type="text"],
+    textarea {
+      font-size: 14px;
+      padding: 8px;
+    }
+    
+    .stars {
+      font-size: 24px;
+      gap: 4px;
+    }
+    
+    .submit-btn {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .review-main-container {
+      padding: 0 10px;
+      gap: 15px;
+      height: auto;
+    }
+    
+    .review-container, .nearby-reviews-container {
+      padding: 15px;
+      width: 100%;
+      height: 350px;
+    }
+    
+    .review-container h2,
+    .nearby-reviews-container h2 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+    
+    .form-group {
+      margin-bottom: 12px;
+    }
+    
+    .form-group label {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    
+    input[type="text"],
+    textarea {
+      font-size: 13px;
+      padding: 6px;
+    }
+    
+    textarea {
+      min-height: 80px;
+    }
+    
+    .stars {
+      font-size: 20px;
+      gap: 3px;
+    }
+    
+    .submit-btn {
+      padding: 8px;
+      font-size: 13px;
+    }
+    
+    .review-card {
+      padding: 12px 0;
+    }
+    
+    .review-header h4 {
+      font-size: 1rem;
+    }
+    
+    .review-msg {
+      font-size: 0.9rem;
+    }
+  }
