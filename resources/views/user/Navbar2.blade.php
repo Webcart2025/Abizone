@@ -17,41 +17,35 @@
       <li><a href="{{ route('logins') }}">Visa</a></li>
       <li><a href="ContactUs">Contact Us</a></li>
       <li><a href="AboutUs">About Us</a></li>
+      @if(Auth::check())
+        <li class="dropdown-container">
+            <dropdown class="profile-btn" id="profile-btn">
+                <img src="{{ asset('asset/css/Images/MaleUser.png') }}" alt="Profile" class="icon2">
+            </dropdown>
+            <!-- User Profile Dropdown -->
+            <div class="dropdown-menu" id="profile-dropdown">
+                <p class="email">
+                    <span class="icon">📧</span> {{ Auth::user()->email }}
+                </p>
+                <a href="{{ route('profile') }}">👤 My Profile</a>
+                <a href="">🎫 Applied Visas</a>
+                <a href="javascript:void(0);" id="logout-button">↩ Logout</a>
+                <form id="delete-account-form" action="{{ route('account.delete') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" id="delete-account">Delete my account</button>
+                </form>
+            </div>
+        </li>
+      @else
+        <li>
+            <a href="/login" class="login-btn">
+               
+                Login
+            </a>
+        </li>
+      @endif
       <li class="dropdown-container">
-                <dropdown class="profile-btn" id="profile-btn">
-                    <img src="asset/css/Images/MaleUser.png" alt="Profile" class="icon2">
-                </dropdown>
-                <!-- User Profile Dropdown -->
-                <div class="dropdown-menu" id="profile-dropdown">
-                    @if(Auth::check())  <!-- Check if the user is logged in -->
-                    <p class="email">
-                            <span class="icon">📧</span> {{ Auth::user()->email }}
-                    </p>
-                    @else
-                        <p class="email">Guest</p>  <!-- Default message for guest users -->
-                    @endif
-                    <a href="{{ route('profile') }}">👤 My Profile</a>
-                    <a href="">🎫 Applied Visas</a>
-
-
-                    <!-- Logout Button -->
-                    @if(Auth::check()) 
-                        <a href="javascript:void(0);" id="logout-button">↩ Logout</a>
-                    @else
-                        <a href="#">↩ Logout</a>
-                    @endif
-
-                    <!-- Delete Account Form -->
-                    @if(Auth::check()) 
-                        <form id="delete-account-form" action="{{ route('account.delete') }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" id="delete-account">Delete my account</button>
-                        </form>
-                    @endif
-                </div>
-            </li>
-            <li class="dropdown-container">
                 <dropdown class="translate-btn" id="translate-btn">
                     <img src="asset/css/Images/GoogleTranslate.png" alt="Translate" class="icon1">
                 </dropdown>
