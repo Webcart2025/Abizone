@@ -125,42 +125,33 @@
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="text-gray-500 text-sm">Total Inquiries</p>
-                                <h3 class="text-2xl font-bold">1,248</h3>
+                                <h3 class="text-2xl font-bold">{{ $totalInquiries ?? 0 }}</h3>
                             </div>
                             <div class="bg-blue-100 p-3 rounded-full">
                                 <i class="fas fa-envelope text-blue-600 text-xl"></i>
                             </div>
-                        </div>
-                        <div class="mt-2">
-                            <span class="text-green-500 text-sm font-medium"><i class="fas fa-arrow-up mr-1"></i> 12% from last month</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow">
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="text-gray-500 text-sm">Pending</p>
-                                <h3 class="text-2xl font-bold">42</h3>
+                                <h3 class="text-2xl font-bold">{{ $pendingInquiries ?? 0 }}</h3>
                             </div>
                             <div class="bg-yellow-100 p-3 rounded-full">
                                 <i class="fas fa-clock text-yellow-600 text-xl"></i>
                             </div>
-                        </div>
-                        <div class="mt-2">
-                            <span class="text-red-500 text-sm font-medium"><i class="fas fa-arrow-down mr-1"></i> 5% from last week</span>
                         </div>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow">
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="text-gray-500 text-sm">Completed</p>
-                                <h3 class="text-2xl font-bold">1,206</h3>
+                                <h3 class="text-2xl font-bold">{{ $completedInquiries ?? 0 }}</h3>
                             </div>
                             <div class="bg-green-100 p-3 rounded-full">
                                 <i class="fas fa-check-circle text-green-600 text-xl"></i>
                             </div>
-                        </div>
-                        <div class="mt-2">
-                            <span class="text-green-500 text-sm font-medium"><i class="fas fa-arrow-up mr-1"></i> 8% from last week</span>
                         </div>
                     </div>
                 </div>
@@ -181,172 +172,54 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                <!-- Sample Data Row 1 -->
+                                @forelse ($contacts as $contact)
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                                <span class="text-blue-600 font-medium">JD</span>
+                                                <span class="text-blue-600 font-medium">{{ strtoupper(substr($contact->first_name, 0, 1) . substr($contact->last_name, 0, 1)) }}</span>
                                             </div>
                                             <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">John Doe</div>
-                                                <div class="text-sm text-gray-500">2023-06-15</div>
+                                                <div class="text-sm font-medium text-gray-900">{{ $contact->first_name }} {{ $contact->last_name }}</div>
+                                                <div class="text-sm text-gray-500">{{ $contact->created_at->format('Y-m-d') }}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">john.doe@example.com</div>
-                                        <div class="text-sm text-gray-500">+1 (555) 123-4567</div>
+                                        <div class="text-sm text-gray-900">{{ $contact->email }}</div>
+                                        <div class="text-sm text-gray-500">{{ $contact->mobile_number }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">United States</div>
+                                        <div class="text-sm text-gray-900">{{ $contact->resident_country }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">Sales Inquiry</div>
+                                        <div class="text-sm text-gray-900">{{ $contact->enquiry_type }}</div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="text-sm text-gray-900 truncate max-w-xs">I'm interested in your enterprise solutions and would like to schedule a demo...</div>
+                                        <div class="text-sm text-gray-900 truncate max-w-xs">{{ $contact->message }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 py-1 text-xs rounded-full status-pending">Pending</span>
+                                        <span class="px-2 py-1 text-xs rounded-full status-{{ $contact->status }}">{{ ucfirst($contact->status) }}</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-blue-600 hover:text-blue-900 mr-3" onclick="openInquiryModal()"><i class="fas fa-eye"></i></button>
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3" onclick='openInquiryModal(@json($contact))'><i class="fas fa-eye"></i></button>
                                         <button class="text-green-600 hover:text-green-900 mr-3"><i class="fas fa-check"></i></button>
                                         <button class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
-                                
-                                <!-- Sample Data Row 2 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center">
-                                                <span class="text-purple-600 font-medium">AS</span>
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Alice Smith</div>
-                                                <div class="text-sm text-gray-500">2023-06-14</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">alice.smith@company.com</div>
-                                        <div class="text-sm text-gray-500">+44 7911 123456</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">United Kingdom</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">Technical Support</div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="text-sm text-gray-900 truncate max-w-xs">Having issues with the API integration, need urgent assistance...</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 py-1 text-xs rounded-full status-completed">Completed</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-blue-600 hover:text-blue-900 mr-3" onclick="openInquiryModal()"><i class="fas fa-eye"></i></button>
-                                        <button class="text-green-600 hover:text-green-900 mr-3"><i class="fas fa-check"></i></button>
-                                        <button class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
-                                    </td>
+                                @empty
+                                <tr>
+                                    <td colspan="7" class="text-center py-4 text-gray-500">No contact inquiries found.</td>
                                 </tr>
-                                
-                                <!-- Sample Data Row 3 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10 bg-green-100 rounded-full flex items-center justify-center">
-                                                <span class="text-green-600 font-medium">RJ</span>
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Robert Johnson</div>
-                                                <div class="text-sm text-gray-500">2023-06-13</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">robert.j@business.org</div>
-                                        <div class="text-sm text-gray-500">+61 412 345 678</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">Australia</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">Partnership</div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="text-sm text-gray-900 truncate max-w-xs">We're interested in becoming a reseller for your products in the APAC region...</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 py-1 text-xs rounded-full status-followup">Follow Up</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-blue-600 hover:text-blue-900 mr-3" onclick="openInquiryModal()"><i class="fas fa-eye"></i></button>
-                                        <button class="text-green-600 hover:text-green-900 mr-3"><i class="fas fa-check"></i></button>
-                                        <button class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Sample Data Row 4 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                                                <span class="text-yellow-600 font-medium">MB</span>
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Maria Brown</div>
-                                                <div class="text-sm text-gray-500">2023-06-12</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">maria.b@consulting.com</div>
-                                        <div class="text-sm text-gray-500">+49 151 12345678</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">Germany</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">General Inquiry</div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="text-sm text-gray-900 truncate max-w-xs">Looking for information about your pricing plans and service level agreements...</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 py-1 text-xs rounded-full status-pending">Pending</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <button class="text-blue-600 hover:text-blue-900 mr-3" onclick="openInquiryModal()"><i class="fas fa-eye"></i></button>
-                                        <button class="text-green-600 hover:text-green-900 mr-3"><i class="fas fa-check"></i></button>
-                                        <button class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
                 
                 <!-- Pagination -->
-                <div class="flex items-center justify-between">
-                    <div class="text-sm text-gray-500">
-                        Showing <span class="font-medium">1</span> to <span class="font-medium">4</span> of <span class="font-medium">1248</span> inquiries
-                    </div>
-                    <div class="flex space-x-1">
-                        <button class="pagination-btn px-3 py-1 border rounded-md bg-white text-gray-700 hover:bg-gray-50">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="pagination-btn active px-3 py-1 border rounded-md">1</button>
-                        <button class="pagination-btn px-3 py-1 border rounded-md bg-white text-gray-700 hover:bg-gray-50">2</button>
-                        <button class="pagination-btn px-3 py-1 border rounded-md bg-white text-gray-700 hover:bg-gray-50">3</button>
-                        <span class="px-3 py-1">...</span>
-                        <button class="pagination-btn px-3 py-1 border rounded-md bg-white text-gray-700 hover:bg-gray-50">25</button>
-                        <button class="pagination-btn px-3 py-1 border rounded-md bg-white text-gray-700 hover:bg-gray-50">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
+                <div class="px-4 py-3">
+                    {{ $contacts->links() }}
                 </div>
                 
                 <!-- Inquiry Detail Modal (Hidden by default) -->
@@ -366,23 +239,23 @@
                                     <div class="space-y-4">
                                         <div>
                                             <label class="block text-sm font-medium text-gray-500">First Name</label>
-                                            <p class="mt-1 text-sm text-gray-900">John</p>
+                                            <p id="modal_first_name" class="mt-1 text-sm text-gray-900"></p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-500">Last Name</label>
-                                            <p class="mt-1 text-sm text-gray-900">Doe</p>
+                                            <p id="modal_last_name" class="mt-1 text-sm text-gray-900"></p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-500">Email</label>
-                                            <p class="mt-1 text-sm text-gray-900">john.doe@example.com</p>
+                                            <p id="modal_email" class="mt-1 text-sm text-gray-900"></p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-500">Phone Number</label>
-                                            <p class="mt-1 text-sm text-gray-900">+1 (555) 123-4567</p>
+                                            <p id="modal_mobile_number" class="mt-1 text-sm text-gray-900"></p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-500">Country</label>
-                                            <p class="mt-1 text-sm text-gray-900">United States</p>
+                                            <p id="modal_resident_country" class="mt-1 text-sm text-gray-900"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -392,23 +265,22 @@
                                     <div class="space-y-4">
                                         <div>
                                             <label class="block text-sm font-medium text-gray-500">Inquiry Type</label>
-                                            <p class="mt-1 text-sm text-gray-900">Sales Inquiry</p>
+                                            <p id="modal_enquiry_type" class="mt-1 text-sm text-gray-900"></p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-500">How Can We Assist You?</label>
-                                            <p class="mt-1 text-sm text-gray-900">I'm interested in your enterprise solutions and would like to schedule a demo to understand how your platform can help our business scale our operations more efficiently. We're particularly interested in the analytics dashboard and API integration capabilities.</p>
+                                            <p id="modal_message" class="mt-1 text-sm text-gray-900"></p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-500">Submitted On</label>
-                                            <p class="mt-1 text-sm text-gray-900">June 15, 2023 at 10:42 AM</p>
+                                            <p id="modal_created_at" class="mt-1 text-sm text-gray-900"></p>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-500">Status</label>
-                                            <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                                                <option>Pending</option>
-                                                <option selected>In Progress</option>
-                                                <option>Completed</option>
-                                                <option>Follow Up Required</option>
+                                            <select id="modal_status" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                                <option value="pending">Pending</option>
+                                                <option value="completed">Completed</option>
+                                                <option value="followup">Follow Up</option>
                                             </select>
                                         </div>
                                     </div>
@@ -437,7 +309,16 @@
 
     <script>
         // Modal functionality
-        function openInquiryModal() {
+        function openInquiryModal(contact) {
+            document.getElementById('modal_first_name').textContent = contact.first_name;
+            document.getElementById('modal_last_name').textContent = contact.last_name;
+            document.getElementById('modal_email').textContent = contact.email;
+            document.getElementById('modal_mobile_number').textContent = contact.mobile_number;
+            document.getElementById('modal_resident_country').textContent = contact.resident_country;
+            document.getElementById('modal_enquiry_type').textContent = contact.enquiry_type;
+            document.getElementById('modal_message').textContent = contact.message;
+            document.getElementById('modal_created_at').textContent = new Date(contact.created_at).toLocaleString();
+            document.getElementById('modal_status').value = contact.status;
             document.getElementById('inquiryModal').classList.remove('hidden');
         }
         

@@ -405,18 +405,32 @@
 
 
 
-<div class="review-main-container">
+<div class="review-main-container" id="review-form">
 
   <!-- Left: Review Form -->
   <div class="review-container">
     <h2>Submit Your Review</h2>
 
-    <div class="success-msg" style="display: none;">Thank you for your feedback!</div>
+    @if(session('success'))
+        <div class="success-msg" style="display: block; background-color: #d4edda; color: #155724; padding: 1rem; border-radius: 0.25rem; margin-bottom: 1rem; text-align: center;">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 1rem; border-radius: 0.25rem; margin-bottom: 1rem;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-    <form onsubmit="submitForm(event)">
+    <form method="POST" action="{{ route('reviews.store') }}">
+        @csrf
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" required />
+        <input type="text" name="name" id="name" required value="{{ old('name') }}" />
       </div>
 
       <div class="form-group">
@@ -428,12 +442,12 @@
           <span class="star" data-value="4">★</span>
           <span class="star" data-value="5">★</span>
         </div>
-        <input type="hidden" name="rating" id="rating" required />
+        <input type="hidden" name="rating" id="rating" required value="{{ old('rating') }}" />
       </div>
 
       <div class="form-group">
         <label for="message">Message</label>
-        <textarea name="message" id="message" required></textarea>
+        <textarea name="message" id="message" required>{{ old('message') }}</textarea>
       </div>
 
       <button type="submit" class="submit-btn">Submit</button>
@@ -444,29 +458,27 @@
   <div class="nearby-reviews-container">
     <h2> Reviews</h2>
 
+    @forelse($reviews as $review)
     <div class="review-card">
       <div class="review-header">
-        <h4>Priya Sharma</h4>
-        <div class="stars">★★★★☆</div>
+        <h4>{{ $review->name }}</h4>
+        <div class="stars">
+            @for ($i = 0; $i < 5; $i++)
+                @if ($i < $review->rating)
+                    ★
+                @else
+                    ☆
+                @endif
+            @endfor
+        </div>
       </div>
-      <p class="review-msg">Great service! Got my visa processed within a week.</p>
+      <p class="review-msg">{{ $review->message }}</p>
     </div>
-
+    @empty
     <div class="review-card">
-      <div class="review-header">
-        <h4>Rahul Mehta</h4>
-        <div class="stars">★★★★★</div>
-      </div>
-      <p class="review-msg">Smooth process and excellent customer service.</p>
+      <p class="review-msg">No reviews yet. Be the first to leave a review!</p>
     </div>
-
-    <div class="review-card">
-      <div class="review-header">
-        <h4>Anjali Patel</h4>
-        <div class="stars">★★★☆☆</div>
-      </div>
-      <p class="review-msg">Average experience, could improve processing speed.</p>
-    </div>
+    @endforelse
 
   </div>
 
@@ -475,28 +487,25 @@
 <script>
   const stars = document.querySelectorAll('.star');
   const ratingInput = document.getElementById('rating');
-  const successMsg = document.querySelector('.success-msg');
 
   stars.forEach(star => {
     star.addEventListener('click', function () {
       const rating = this.getAttribute('data-value');
       ratingInput.value = rating;
 
-      stars.forEach(s => {
+      stars.forEach((s, index) => {
         s.style.color = (s.getAttribute('data-value') <= rating) ? '#ffc107' : '#ddd';
       });
     });
   });
 
-  function submitForm(event) {
-    event.preventDefault();
-    successMsg.style.display = 'block';
-    setTimeout(() => {
-      successMsg.style.display = 'none';
-    }, 3000);
-    event.target.reset();
-    ratingInput.value = '';
-    stars.forEach(star => star.style.color = '#ddd');
+  // Pre-select stars if there's an old rating value
+  if (ratingInput.value) {
+      stars.forEach(s => {
+          if (s.getAttribute('data-value') <= ratingInput.value) {
+              s.style.color = '#ffc107';
+          }
+      });
   }
 </script>
 

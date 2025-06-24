@@ -28,32 +28,32 @@
           <div class="dashboard-card bg-white rounded-lg p-5 flex flex-col items-center shadow">
             <div class="bg-blue-100 p-3 rounded-full mb-2"><i class="fas fa-users text-blue-600 text-xl"></i></div>
             <div class="text-xs text-gray-500">Total Users</div>
-            <div class="text-2xl font-bold text-gray-900">1,234</div>
+            <div class="text-2xl font-bold text-gray-900">{{ $totalUsers ?? '0' }}</div>
           </div>
           <div class="dashboard-card bg-white rounded-lg p-5 flex flex-col items-center shadow">
             <div class="bg-green-100 p-3 rounded-full mb-2"><i class="fas fa-user-tie text-green-600 text-xl"></i></div>
             <div class="text-xs text-gray-500">Total Agents</div>
-            <div class="text-2xl font-bold text-gray-900">456</div>
+            <div class="text-2xl font-bold text-gray-900">{{ $totalAgents ?? '0' }}</div>
           </div>
           <div class="dashboard-card bg-white rounded-lg p-5 flex flex-col items-center shadow">
             <div class="bg-indigo-100 p-3 rounded-full mb-2"><i class="fas fa-passport text-indigo-600 text-xl"></i></div>
             <div class="text-xs text-gray-500">Visa Applications</div>
-            <div class="text-2xl font-bold text-gray-900">2,345</div>
+            <div class="text-2xl font-bold text-gray-900">{{ $totalApplications ?? '0' }}</div>
           </div>
           <div class="dashboard-card bg-white rounded-lg p-5 flex flex-col items-center shadow">
             <div class="bg-yellow-100 p-3 rounded-full mb-2"><i class="fas fa-hourglass-half text-yellow-600 text-xl"></i></div>
             <div class="text-xs text-gray-500">Pending Applications</div>
-            <div class="text-2xl font-bold text-gray-900">123</div>
+            <div class="text-2xl font-bold text-gray-900">{{ $pendingApplications ?? '0' }}</div>
           </div>
           <div class="dashboard-card bg-white rounded-lg p-5 flex flex-col items-center shadow">
             <div class="bg-green-100 p-3 rounded-full mb-2"><i class="fas fa-check-circle text-green-600 text-xl"></i></div>
             <div class="text-xs text-gray-500">Completed Applications</div>
-            <div class="text-2xl font-bold text-gray-900">1,111</div>
+            <div class="text-2xl font-bold text-gray-900">{{ $completedApplications ?? '0' }}</div>
           </div>
           <div class="dashboard-card bg-white rounded-lg p-5 flex flex-col items-center shadow">
             <div class="bg-purple-100 p-3 rounded-full mb-2"><i class="fas fa-dollar-sign text-purple-600 text-xl"></i></div>
             <div class="text-xs text-gray-500">Total Revenue</div>
-            <div class="text-2xl font-bold text-gray-900">$56,789</div>
+            <div class="text-2xl font-bold text-gray-900">${{ number_format($totalRevenue ?? 0, 2) }}</div>
           </div>
         </div>
         <!-- Recent Activity Table -->
@@ -74,34 +74,34 @@
                 </tr>
               </thead>
               <tbody>
+                @forelse($recentActivities as $activity)
                 <tr>
-                  <td class="px-4 py-2"><span class="inline-flex items-center px-2 py-1 bg-indigo-100 text-indigo-700 rounded"><i class="fas fa-passport mr-1"></i> Visa</span></td>
-                  <td class="px-4 py-2">John Doe</td>
-                  <td class="px-4 py-2">Tourist Visa Application</td>
-                  <td class="px-4 py-2">Jun 15, 2023</td>
-                  <td class="px-4 py-2"><span class="inline-block px-2 py-1 bg-green-100 text-green-700 rounded">Completed</span></td>
+                  <td class="px-4 py-2">
+                    @if($activity->activity_type === 'Visa Application')
+                      <span class="inline-flex items-center px-2 py-1 bg-indigo-100 text-indigo-700 rounded"><i class="fas fa-passport mr-1"></i> Visa</span>
+                    @else
+                      <span class="inline-flex items-center px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><i class="fas fa-user-plus mr-1"></i> User</span>
+                    @endif
+                  </td>
+                  <td class="px-4 py-2">{{ $activity->activity_user }}</td>
+                  <td class="px-4 py-2">{{ $activity->activity_detail }}</td>
+                  <td class="px-4 py-2">{{ $activity->activity_date->format('M d, Y') }}</td>
+                  <td class="px-4 py-2">
+                    <span class="inline-block px-2 py-1 rounded
+                      @if(in_array(strtolower($activity->activity_status), ['completed', 'approved', 'active'])) bg-green-100 text-green-700
+                      @elseif(in_array(strtolower($activity->activity_status), ['pending'])) bg-yellow-100 text-yellow-700
+                      @else bg-red-100 text-red-700
+                      @endif
+                    ">
+                      {{ $activity->activity_status }}
+                    </span>
+                  </td>
                 </tr>
+                @empty
                 <tr>
-                  <td class="px-4 py-2"><span class="inline-flex items-center px-2 py-1 bg-yellow-100 text-yellow-700 rounded"><i class="fas fa-user-plus mr-1"></i> User</span></td>
-                  <td class="px-4 py-2">Alice Smith</td>
-                  <td class="px-4 py-2">Registered New Account</td>
-                  <td class="px-4 py-2">Jun 16, 2023</td>
-                  <td class="px-4 py-2"><span class="inline-block px-2 py-1 bg-blue-100 text-blue-700 rounded">Active</span></td>
+                  <td colspan="5" class="px-4 py-4 text-center text-gray-500">No recent activity found.</td>
                 </tr>
-                <tr>
-                  <td class="px-4 py-2"><span class="inline-flex items-center px-2 py-1 bg-green-100 text-green-700 rounded"><i class="fas fa-user-tie mr-1"></i> Agent</span></td>
-                  <td class="px-4 py-2">Michael Brown</td>
-                  <td class="px-4 py-2">Agent Application Approved</td>
-                  <td class="px-4 py-2">Jun 17, 2023</td>
-                  <td class="px-4 py-2"><span class="inline-block px-2 py-1 bg-green-100 text-green-700 rounded">Approved</span></td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2"><span class="inline-flex items-center px-2 py-1 bg-red-100 text-red-700 rounded"><i class="fas fa-times-circle mr-1"></i> Visa</span></td>
-                  <td class="px-4 py-2">Emily Davis</td>
-                  <td class="px-4 py-2">Visa Application Rejected</td>
-                  <td class="px-4 py-2">Jun 18, 2023</td>
-                  <td class="px-4 py-2"><span class="inline-block px-2 py-1 bg-red-100 text-red-700 rounded">Rejected</span></td>
-                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>

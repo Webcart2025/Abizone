@@ -82,7 +82,7 @@
             <table class="min-w-full divide-y divide-gray-200">
               <thead class="bg-gray-50">
                 <tr>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">#</th>
+                  <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">#</th> -->
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Applicant ID</th>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Applicant Name</th>
                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Citizen</th>
@@ -92,50 +92,42 @@
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
+  @foreach($applications as $key => $app)
                 <tr class="hover:bg-gray-50 transition">
-                  <td class="px-6 py-4 text-sm font-medium text-gray-900">1</td>
-                  <td class="px-6 py-4 text-sm text-gray-500">User</td>
-                  <td class="px-6 py-4">
-                    <div class="flex items-center">
-                      <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+    <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $app->application_id }}</td>
+    <td class="px-6 py-4 text-sm text-gray-500">
                       <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">Om Sharma</div>
-                        <div class="text-sm text-gray-500">Tourist Visa</div>
-                      </div>
+          <div class="text-sm font-medium text-gray-900">{{ $app->first_name }} {{ $app->last_name }}</div>
+          <div class="text-sm text-gray-500">{{ ucfirst($app->visa_type ?? 'Tourist Visa') }}</div>
                     </div>
                   </td>
-                  <td class="px-6 py-4 text-sm text-gray-500">Canada</td>
-                  <td class="px-6 py-4 text-sm text-gray-500">Tourist</td>
                   <td class="px-6 py-4">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
-                  </td>
-                  <td class="px-6 py-4 text-right">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm" onclick="viewApplication('1')">View</button>
-                  </td>
-                </tr>
-                
-                <tr class="hover:bg-gray-50 transition">
-                  <td class="px-6 py-4 text-sm font-medium text-gray-900">2</td>
-                  <td class="px-6 py-4 text-sm text-gray-500">Agent - YatraLink</td>
-                  <td class="px-6 py-4">
-                    <div class="flex items-center">
-                      <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
-                      <div class="ml-4">
-                        <div class="text-sm font-medium text-gray-900">Riya Patel</div>
-                        <div class="text-sm text-gray-500">Work Visa</div>
-                      </div>
+      <div class="flex items-center">{{ $app->nationality ?? 'Unknown' }} 
+        <!-- <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/{{ rand(1,99) }}.jpg" alt=""> -->
+        <!-- <div class="ml-4">
+          <div class="text-sm font-medium text-gray-900">{{ $app->first_name }} {{ $app->last_name }}</div>
+          <div class="text-sm text-gray-500">{{ ucfirst($app->visa_type ?? 'Tourist Visa') }}</div>
+        </div> -->
                     </div>
                   </td>
-                  <td class="px-6 py-4 text-sm text-gray-500">United States</td>
-                  <td class="px-6 py-4 text-sm text-gray-500">Work</td>
+    <!-- <td class="px-6 py-4 text-sm text-gray-500">{{ $app->nationality ?? 'Unknown' }}</td> -->
+    <td class="px-6 py-4 text-sm text-gray-500">{{ ucfirst($app->visa_type ?? 'Tourist') }}</td>
                   <td class="px-6 py-4">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Processing</span>
+      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+        {{ $app->status == 'completed' ? 'bg-green-100 text-green-800' : ($app->status == 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
+        {{ ucfirst($app->status ?? 'Pending') }}
+      </span>
                   </td>
                   <td class="px-6 py-4 text-right">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm" onclick="viewApplication('2')">View</button>
+      <button onclick="viewApplication(this)" data-application="{{ json_encode($app) }}"
+         class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+        View
+      </button>
                   </td>
                 </tr>
+  @endforeach
               </tbody>
+
             </table>
           </div>
         </div>
@@ -155,10 +147,8 @@
                   <div class="bg-gray-50 rounded-lg p-4">
                     <h5 class="font-semibold text-gray-900 mb-3">Applicant Information</h5>
                     <div class="space-y-2 text-sm">
-                      <p><span class="font-medium">Category:</span> <span id="category">Tourist</span></p>
-                      <p><span class="font-medium">Entry:</span> <span id="entry">Single Entry</span></p>
-                      <p><span class="font-medium">Duration:</span> <span id="duration">30 Days</span></p>
-                      <p><span class="font-medium">Total Price:</span> <span id="totalprice" class="text-green-600 font-semibold">₹15,000</span></p>
+                      <p><span class="font-medium">Visa Type:</span> <span id="review_visa_type"></span></p>
+                      <p><span class="font-medium">Total Price:</span> <span id="review_price" class="text-green-600 font-semibold"></span></p>
                     </div>
                   </div>
 
@@ -166,13 +156,13 @@
                   <div class="bg-gray-50 rounded-lg p-4">
                     <h5 class="font-semibold text-gray-900 mb-3">Personal Information</h5>
                     <div class="space-y-2 text-sm">
-                      <p><span class="font-medium">First Name:</span> Dhruvi</p>
-                      <p><span class="font-medium">Middle Name:</span> Ashokbhai</p>
-                      <p><span class="font-medium">Last Name:</span> Mangroliya</p>
-                      <p><span class="font-medium">Nationality:</span> Indian</p>
-                      <p><span class="font-medium">Birth Date:</span> 6th Feb 2005</p>
-                      <p><span class="font-medium">Gender:</span> Female</p>
-                      <p><span class="font-medium">Marital Status:</span> Unmarried</p>
+                      <p><span class="font-medium">First Name:</span> <span id="review_first_name"></span></p>
+                      <p><span class="font-medium">Middle Name:</span> <span id="review_middle_name"></span></p>
+                      <p><span class="font-medium">Last Name:</span> <span id="review_last_name"></span></p>
+                      <p><span class="font-medium">Nationality:</span> <span id="review_nationality"></span></p>
+                      <p><span class="font-medium">Birth Date:</span> <span id="review_birth_date"></span></p>
+                      <p><span class="font-medium">Gender:</span> <span id="review_gender"></span></p>
+                      <p><span class="font-medium">Marital Status:</span> <span id="review_marital_status"></span></p>
                     </div>
                   </div>
 
@@ -180,22 +170,13 @@
                   <div class="bg-gray-50 rounded-lg p-4">
                     <h5 class="font-semibold text-gray-900 mb-3">Address Information</h5>
                     <div class="space-y-2 text-sm">
-                      <p><span class="font-medium">Address:</span> Naranpura Ahmedabad</p>
-                      <p><span class="font-medium">Phone Number:</span> 9960061354</p>
-                      <p><span class="font-medium">Landmark:</span> Ahmedabad</p>
-                      <p><span class="font-medium">Country:</span> India</p>
-                      <p><span class="font-medium">State:</span> Gujarat</p>
-                      <p><span class="font-medium">City:</span> Ahmedabad</p>
-                      <p><span class="font-medium">Pincode:</span> 380051</p>
-                    </div>
-                  </div>
-
-                  <!-- Payment -->
-                  <div class="bg-gray-50 rounded-lg p-4">
-                    <h5 class="font-semibold text-gray-900 mb-3">Payment Information</h5>
-                    <div class="space-y-2 text-sm">
-                      <p><span class="font-medium">Status:</span> <span class="text-green-600 font-semibold">Paid</span></p>
-                      <p><span class="font-medium">Transaction ID:</span> TXN123456</p>
+                      <p><span class="font-medium">Address:</span> <span id="review_address"></span></p>
+                      <p><span class="font-medium">Phone Number:</span> <span id="review_phone_number"></span></p>
+                      <p><span class="font-medium">Landmark:</span> <span id="review_landmark"></span></p>
+                      <p><span class="font-medium">Country:</span> <span id="review_country"></span></p>
+                      <p><span class="font-medium">State:</span> <span id="review_state"></span></p>
+                      <p><span class="font-medium">City:</span> <span id="review_city"></span></p>
+                      <p><span class="font-medium">Pincode:</span> <span id="review_pincode"></span></p>
                     </div>
                   </div>
                 </div>
@@ -205,31 +186,8 @@
                   <!-- Documents -->
                   <div class="bg-gray-50 rounded-lg p-4">
                     <h5 class="font-semibold text-gray-900 mb-3">Documents</h5>
-                    <div class="space-y-2">
-                      <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                        <span class="text-sm">Passport Front</span>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View</a>
-                      </div>
-                      <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                        <span class="text-sm">Passport Back</span>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View</a>
-                      </div>
-                      <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                        <span class="text-sm">Travel Photo</span>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View</a>
-                      </div>
-                      <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                        <span class="text-sm">Return Ticket</span>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View</a>
-                      </div>
-                      <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                        <span class="text-sm">Pan Card</span>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View</a>
-                      </div>
-                      <div class="flex justify-between items-center py-2">
-                        <span class="text-sm">Hotel Booking</span>
-                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">View</a>
-                      </div>
+                    <div id="review_document_links" class="space-y-2">
+                      <!-- Document links will be injected here by JavaScript -->
                     </div>
                   </div>
 
@@ -239,19 +197,19 @@
                     <div class="space-y-2">
                       <div class="flex justify-between items-center py-2 border-b border-gray-200">
                         <span class="text-sm">Passport Number</span>
-                        <span class="text-sm font-medium">A12345678</span>
+                        <span id="review_passport_number" class="text-sm font-medium"></span>
                       </div>
                       <div class="flex justify-between items-center py-2 border-b border-gray-200">
                         <span class="text-sm">Expiry Date</span>
-                        <span class="text-sm font-medium">2028-12-31</span>
+                        <span id="review_passport_expiry_date" class="text-sm font-medium"></span>
                       </div>
                       <div class="flex justify-between items-center py-2 border-b border-gray-200">
                         <span class="text-sm">Pancard Number</span>
-                        <span class="text-sm font-medium">ABCDE1234F</span>
+                        <span id="review_pan_card_number" class="text-sm font-medium"></span>
                       </div>
                       <div class="flex justify-between items-center py-2">
                         <span class="text-sm">Passport Issue Date</span>
-                        <span class="text-sm font-medium">2020-01-15</span>
+                        <span id="review_passport_issue_date" class="text-sm font-medium"></span>
                       </div>
                     </div>
                   </div>
@@ -261,29 +219,24 @@
               <!-- Final Action -->
               <div class="mt-8 bg-gray-50 rounded-lg p-4">
                 <h5 class="font-semibold text-gray-900 mb-4">Final Action</h5>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Change Status</label>
-                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                      <option value="pending">Pending</option>
-                      <option value="processing">Processing</option>
-                      <option value="approved">Approved</option>
-                      <option value="cancelled">Cancelled</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Upload Visa File</label>
-                    <input type="file" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                  </div>
-                </div>
-                <div class="flex space-x-3">
-                  <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                    Approve
-                  </button>
-                  <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                    Reject
-                  </button>
-                </div>
+                <form id="updateStatusForm" method="POST" action="">
+                    @csrf
+                    <input type="hidden" name="status" id="statusInput">
+                    
+                    <div class="mb-4">
+                        <label for="feedback" class="block text-sm font-medium text-gray-700 mb-2">Feedback (Optional)</label>
+                        <textarea name="feedback" id="feedback" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Provide feedback or reasons for the decision..."></textarea>
+                    </div>
+
+                    <div class="flex space-x-3">
+                        <button type="button" onclick="submitUpdate('approved')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                            <i class="fas fa-check mr-2"></i>Approve
+                        </button>
+                        <button type="button" onclick="submitUpdate('rejected')" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                            <i class="fas fa-times mr-2"></i>Reject
+                        </button>
+                    </div>
+                </form>
               </div>
             </div>
           </div>
@@ -293,10 +246,81 @@
   </div>
 
   <script>
-    function viewApplication(id) {
-      document.getElementById("appReviewPanel").style.display = "block";
-      // Scroll to the review panel
-      document.getElementById("appReviewPanel").scrollIntoView({ behavior: 'smooth' });
+    function viewApplication(button) {
+      const app = JSON.parse(button.dataset.application);
+      const baseUrl = '{{ url("/") }}';
+
+      // --- Populate Details ---
+      document.getElementById('review_visa_type').textContent = app.visa_type || 'N/A';
+      document.getElementById('review_price').textContent = app.price ? `₹${app.price}` : 'N/A';
+      
+      document.getElementById('review_first_name').textContent = app.first_name || 'N/A';
+      document.getElementById('review_middle_name').textContent = app.middle_name || 'N/A';
+      document.getElementById('review_last_name').textContent = app.last_name || 'N/A';
+      document.getElementById('review_nationality').textContent = app.nationality || 'N/A';
+      document.getElementById('review_birth_date').textContent = app.birth_date ? new Date(app.birth_date).toLocaleDateString() : 'N/A';
+      document.getElementById('review_gender').textContent = app.gender || 'N/A';
+      document.getElementById('review_marital_status').textContent = app.marital_status || 'N/A';
+
+      document.getElementById('review_address').textContent = app.address || 'N/A';
+      document.getElementById('review_phone_number').textContent = app.phone_number || 'N/A';
+      document.getElementById('review_landmark').textContent = app.landmark || 'N/A';
+      document.getElementById('review_country').textContent = app.country || 'N/A';
+      document.getElementById('review_state').textContent = app.state || 'N/A';
+      document.getElementById('review_city').textContent = app.city || 'N/A';
+      document.getElementById('review_pincode').textContent = app.pincode || 'N/A';
+      
+      document.getElementById('review_passport_number').textContent = app.passport_number || 'N/A';
+      document.getElementById('review_passport_expiry_date').textContent = app.passport_expiry_date ? new Date(app.passport_expiry_date).toLocaleDateString() : 'N/A';
+      document.getElementById('review_pan_card_number').textContent = app.pan_card_number || 'N/A';
+      document.getElementById('review_passport_issue_date').textContent = app.passport_issue_date ? new Date(app.passport_issue_date).toLocaleDateString() : 'N/A';
+
+      // --- Populate Document Links ---
+      const docLinksContainer = document.getElementById('review_document_links');
+      docLinksContainer.innerHTML = ''; // Clear previous links
+
+      const documents = {
+        'Passport Front': app.passport_first_page,
+        'Passport Back': app.passport_last_page,
+        'Photo': app.photo,
+        'PAN Card': app.pan_card,
+        'Return Ticket': app.return_ticket,
+        'Hotel Booking': app.hotel_details,
+      };
+
+      let hasDocuments = false;
+      for (const [label, path] of Object.entries(documents)) {
+          if (path) {
+              hasDocuments = true;
+              const url = `${baseUrl}/${path}`;
+              const linkHtml = `
+                <div class="flex justify-between items-center py-2 border-b last:border-b-0 border-gray-200">
+                  <span class="text-sm">${label}</span>
+                  <a href="${url}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View Document</a>
+                </div>
+              `;
+              docLinksContainer.insertAdjacentHTML('beforeend', linkHtml);
+          }
+      }
+      if (!hasDocuments) {
+          docLinksContainer.innerHTML = '<p class="text-sm text-gray-500">No documents uploaded.</p>';
+      }
+
+      // --- Show Panel ---
+      const reviewPanel = document.getElementById("appReviewPanel");
+      reviewPanel.style.display = "block";
+      reviewPanel.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function submitUpdate(status) {
+        const form = document.getElementById('updateStatusForm');
+        const statusInput = document.getElementById('statusInput');
+        
+        const applicationId = JSON.parse(document.querySelector(`[data-application]`).dataset.application).id;
+
+        statusInput.value = status;
+        form.action = `/admin/applications/${applicationId}/status`;
+        form.submit();
     }
   </script>
 </body>

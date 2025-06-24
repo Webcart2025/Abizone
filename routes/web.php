@@ -6,16 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\VisaApplicationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('user.welcome');
-});
+// Public Routes
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/Welcome', function () {
-    return view('user.welcome');
-});
+Route::get('/Welcome', [HomeController::class, 'index']);
 
 Route::get('/about', function () {
     return view('user.about');
@@ -32,17 +33,6 @@ Route::get('/TermsandConditions', function () {
 Route::get('/contactus', function () {
     return view('user.Contactus');
 })->name('Contactus');
-// Route::middleware("auth")->group(function () {
-//     Route::view("/",'welcome')->name('welcome');
-// });
-
-// Route::view('/profile', 'user.profile')->name('UserProfile');
-
-
-Route::post('logout', function () {
-    Auth::logout();
-    return response()->json(['redirectUrl' => '/']); // Adjust the redirect URL here
-})->name('logout');
 
 Route::get('/PrivacyPolicy', function () {
     return view('user.PrivacyPolicy');
@@ -58,29 +48,19 @@ Route::get('/RefundPolicy', function () {
 
 Route::get('/SignUp', function () {
     return view('user.SignUp');
-});
-Route::get('/Login', function () {
-    return view('user.Login');
-});
+})->name('logins');
+
+Route::get('/Login', [AuthController::class, 'login'])->name('login');
+
 
 Route::get('/Document', function () {
     return view('Document');
 });
 
 Route::get('/Navbar', function () {
-    // return view('Navbar');
     $user = Auth::user();
-    
     return view('user.Navbar', compact('user'));
 });
-
-// Route::get('/Profile', function () {
-//     return view('Profile');
-// });
-
-// Route::get('/UserProfile', function () {
-//     return view('UserProfile');
-// });
 
 Route::get('/AboutUs', function () {
     return view('user.About');
@@ -102,7 +82,32 @@ Route::get('/Form', function () {
     return view('Form');
 });
 
+Route::get('/calender', function () {
+    return view('user.calender'); 
+});
 
+Route::get('/Payment',function(){
+    return view('user.Payment');
+})->name('Payment');
+
+Route::post('/submit-form1', function() {
+    return redirect()->route('Payment');
+})->name('submit.form1');
+
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
+// Authentication Routes
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'registerPost'])->name('registerPost');
+Route::post('/LoginPost', [AuthController::class, 'loginPost'])->name('login.post');
+
+// Google Auth Routes
+Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+Route::get('auth/google/call-back', [GoogleAuthController::class, 'callback']); 
+
+// Agent Routes
 Route::get('/AgentRegistration', function () {
     return view('agent.AgentRegistration');
 });
@@ -110,9 +115,11 @@ Route::get('/AgentRegistration', function () {
 Route::get('/AgentDashboard', function () {
     return view('agent.Dashboard');
 });
+
 Route::get('/AgentUser', function () {
     return view('agent.AgentUser');
 });
+
 Route::get('/a_reg', function () {
     return view('agent.AgentVisaApplication');
 });
@@ -128,111 +135,75 @@ Route::get('/wallet', function () {
 Route::get('/VisaApplicationDetails', function () {
     return view('agent.VisaApplicationDetails');
 });
+
 Route::get('/applicant', function () {
     return view('agent.Applicant'); 
 });
+
 Route::get('/AgentProfile', function () {
     return view('agent.AgentProfile');
 });
-// Route::get('/document', function () {
-//     return view('document');
-// });
 
-Route::get('/admin/login', function () {
-    return view('admin.Admin');
-});
-Route::get('/Dashboard', function () {
-    return view('admin.Admin_Dashboard');
-});
-
-Route::get('/admin_user', function () {
-    return view('admin.Admiin_user');
-});
-
-Route::get('/user_application', function () {
-    return view('admin.user_application');
-});
-
-Route::get('/user_contact', function () {
-    return view('admin.user_contact');
-});
-
-Route::get('/user_transaction', function () {
-    return view('admin.user_transaction');
-});
-
-Route::get('/user_review', function () {
-    return view('admin.user_review');
-});
-
-Route::get('/admin_agent', function () {
-    return view('admin.Admin_ Agents');
-});
-
-Route::get('/AgentDetails', function () {
-    return view('admin.Admin_AgentDetails');
-});
-Route::get('/calender', function () {
-    return view('user.calender'); 
-});
-Route::get('/Payment',function(){
-    return view('user.Payment');
-})->name('Payment');
-
-
-Route::post('/submit-form1', function() {
-    // Process form data if needed
-    return redirect()->route('Payment');
-})->name('submit.form1');
-Route::get('/admin/login', [AdminAuthController::class,'adminLoginForm'])->name('admin');
-Route::post('/admin', [AdminAuthController::class,'adminPost'])->name('adminpost');
-Route::get('auth/google',[GoogleAuthController::class,'redirect'])->name('google-auth');
-Route::get('auth/google/call-back',[GoogleAuthController::class,'callback']); 
-Route::get('/Logins', [AuthController::class,'login'])->name('logins');
-Route::get('/Login',[AuthController::class , 'logins'])->name('login');
-Route::post('/Loginpost', [AuthController::class,'loginPost'])->name('login.post');
-Route::get('/register', [AuthController::class,'register'])->name('register');
-Route::post('/register', [AuthController::class, 'registerPost'])->name('registerPost');
-Route::get('/admin/login', [AdminAuthController::class,'adminLoginForm'])->name('admin');
-Route::post('/adminpost', [AdminAuthController::class,'adminlogins'])->name('admin.post');
-Route::get('/document', [AuthController::class,'document'])->name('document');
-Route::delete('/account/delete', [AuthController::class, 'delete'])->name('account.delete');
-Route::get('/profile', [ProfileController::class,'profile'])->name('profile');
-Route::post('/visa-application', [VisaApplicationController::class, 'store'])->name('store.post');
-Route::put('/profile/update', [ProfileController::class,'update'])->name('profile.update');
-// Route::get('/agent/visa-users', [AgentController::class, 'showUsers'])->name('agent.visaUsers');
-// Route::get('/agent/apply-visa/{user}', [AgentController::class, 'applyVisaForm'])->name('agent.applyVisaForm');
-
-// Authentication Routes
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'loginPost'])->name('loginPost');
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/register', [AuthController::class, 'registerPost'])->name('registerPost');
-Route::get('/logins', [AuthController::class, 'logins'])->name('logins');
-
-// Protected Routes
+// Protected Routes (Require Authentication)
 Route::middleware(['auth'])->group(function () {
+    // Common authenticated routes
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::post('/delete-account', [AuthController::class, 'delete'])->name('delete.account');
-    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-    Route::post('/process-visa', [App\Http\Controllers\VisaController::class, 'process'])->name('process.visa');
-});
-
-// Visa Payment Routes
-Route::post('/process-visa', [App\Http\Controllers\VisaPaymentController::class, 'process'])->name('process.visa');
-Route::get('/visa/status/{id}', [App\Http\Controllers\VisaPaymentController::class, 'status'])->name('visa.status');
-
-Route::middleware(['auth'])->group(function () {
+    Route::delete('/account/delete', [AuthController::class, 'delete'])->name('account.delete');
+    
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     
     // Visa application routes
-    Route::get('/profile/application/{id}', [VisaApplicationController::class, 'show'])
-         ->name('visa.profile');
+    Route::post('/visa-application', [VisaApplicationController::class, 'store'])->name('store.post');
+    Route::get('/profile/application/{id}', [VisaApplicationController::class, 'show'])->name('visa.profile');
+    
+    // User dashboard
+    //Route::get('/home', [HomeController::class, 'index'])->name('home');
+    
+    Route::post('/admin/applications/{id}/status', [VisaApplicationController::class, 'updateStatus'])->name('admin.applications.updateStatus');
+
+    // Payment routes
+    Route::post('/process-visa', [App\Http\Controllers\VisaPaymentController::class, 'process'])->name('process.visa');
+    Route::get('/visa/status/{id}', [App\Http\Controllers\VisaPaymentController::class, 'status'])->name('visa.status');
+    Route::post("razorpay/callback", [Controller::class, 'callback'])->name('razorpay.callback');
+
+    // Admin Routes (Require both auth and admin role)
+    Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    });
+
+     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('adminn');
 
 
-});
+    Route::get('/applications', [VisaApplicationController::class, 'index'])->name('admin.applications');
 
-    Route::post("razorpay/callback",[Controller::class,'callback'])->name('razorpay.callback');
 
+    // User routes
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/users', [AdminController::class, 'showUsers'])->name('admin.users');
+    });
+        
+    Route::get('/contacts', [AdminController::class, 'showContacts'])->name('admin.contacts');
+        
+        Route::get('/transactions', function () {
+            return view('admin.user_transaction');
+        })->name('admin.transactions');
+        
+        Route::get('/reviews', [AdminController::class, 'showReviews'])->name('admin.reviews');
+        
+        Route::get('/agents', function () {
+            return view('admin.Admin_ Agents');
+        })->name('admin.agents');
+        
+        Route::get('/agent-details', function () {
+            return view('admin.Admin_AgentDetails');
+        })->name('admin.agent-details');
+
+        // Route::get('/Dashboard', function () {
+        //     return view('admin.Admin_ Dashboard');
+        // })->name('Dashboard');
+
+      
+       
+    });

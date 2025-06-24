@@ -77,7 +77,7 @@
             </button>
 
             <div class="links">
-                <p>Already have an account? <a href="{{ route('logins') }}" class="login-link">Login here</a></p>
+                <p>Already have an account? <a href="{{ route('login') }}" class="login-link">Login here</a></p>
                 <!-- <p>Are you an agent? <a href="#" class="agent-link">Agent login</a></p> -->
             </div>
         </form>

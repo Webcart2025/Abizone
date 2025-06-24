@@ -14,7 +14,7 @@
     </div>
 
     <ul class="desktop-nav">
-      <li><a href="{{ route('logins') }}">Visa</a></li>
+      <li><a href="{{ route('login') }}">Visa</a></li>
       <li><a href="ContactUs">Contact Us</a></li>
       <li><a href="AboutUs">About Us</a></li>
       <li class="dropdown-container">
@@ -73,7 +73,7 @@
       <img id="closeIcon" src="{{ asset('asset/css/Images/close_FILL0_wght400_GRAD0_opsz48.svg') }}" alt="close" />
     </div>
     <ul>
-      <li><a href="{{ route('logins') }}">Visa</a></li>
+      <li><a href="{{ route('login') }}">Visa</a></li>
       <li><a href="ContactUs">Contact Us</a></li>
       <li><a href="AboutUs">About Us</a></li>
           <li><a href="Logins">Profile</a></li>

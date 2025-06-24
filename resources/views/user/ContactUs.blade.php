@@ -211,48 +211,70 @@
       </select>
     </div>
 
-    <form class="contact-form" method="POST" action="#">
+    @if(session('success'))
+      <div class="alert alert-success" style="background-color: #d4edda; color: #155724; padding: 1rem; border-radius: 0.25rem; margin-bottom: 1rem; text-align: center;">
+          {{ session('success') }}
+      </div>
+    @endif
+
+    @if ($errors->any())
+      <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 1rem; border-radius: 0.25rem; margin-bottom: 1rem;">
+          <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
+    @endif
+
+    <form class="contact-form" method="POST" action="{{ route('contact.store') }}">
+      @csrf
       <h3>Contact Form</h3>
       <div class="form-grid">
         <div class="form-group">
-          <label>First Name*</label>
-          <input type="text" placeholder="Enter Your First Name">
+          <label for="first_name">First Name*</label>
+          <input type="text" id="first_name" name="first_name" placeholder="Enter Your First Name" required value="{{ old('first_name') }}">
         </div>
         <div class="form-group">
-          <label>Last Name*</label>
-          <input type="text" placeholder="Enter Your Last Name">
+          <label for="last_name">Last Name*</label>
+          <input type="text" id="last_name" name="last_name" placeholder="Enter Your Last Name" required value="{{ old('last_name') }}">
         </div>
         <div class="form-group mobile-group">
-          <label>Mobile Number*</label>
+          <label for="mobile_number">Mobile Number*</label>
           <div class="mobile-wrapper">
-            <select><option>+91</option></select>
-            <input type="text" placeholder="Enter Number">
+            <select name="country_code"><option>+91</option></select>
+            <input type="text" id="mobile_number" name="mobile_number" placeholder="Enter Number" required value="{{ old('mobile_number') }}">
           </div>
         </div>
         <div class="form-group full-width radio-group">
           <label>Are you an existing OneVasco customer*</label>
-          <label><input type="radio" name="existing" /> Yes</label>
-          <label><input type="radio" name="existing" checked /> No</label>
+          <label><input type="radio" name="is_existing_customer" value="1" {{ old('is_existing_customer') == '1' ? 'checked' : '' }}> Yes</label>
+          <label><input type="radio" name="is_existing_customer" value="0" {{ old('is_existing_customer', '0') == '0' ? 'checked' : '' }}> No</label>
         </div>
         <div class="form-group">
-          <label>Email ID*</label>
-          <input type="email" placeholder="Enter Email ID">
+          <label for="email">Email ID*</label>
+          <input type="email" id="email" name="email" placeholder="Enter Email ID" required value="{{ old('email') }}">
         </div>
         <div class="form-group">
-          <label>Your resident country*</label>
-          <select>
-            <option>Select Country</option>
+          <label for="resident_country">Your resident country*</label>
+          <select id="resident_country" name="resident_country" required>
+            <option value="">Select Country</option>
+            <option value="India" {{ old('resident_country') == 'India' ? 'selected' : '' }}>India</option>
+            <option value="USA" {{ old('resident_country') == 'USA' ? 'selected' : '' }}>USA</option>
+            <option value="UK" {{ old('resident_country') == 'UK' ? 'selected' : '' }}>UK</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Enquiry Type*</label>
-          <select>
-            <option>Select Enquiry Type</option>
+          <label for="enquiry_type">Enquiry Type*</label>
+          <select id="enquiry_type" name="enquiry_type" required>
+            <option value="">Select Enquiry Type</option>
+            <option value="Visa" {{ old('enquiry_type') == 'Visa' ? 'selected' : '' }}>Visa</option>
+            <option value="General" {{ old('enquiry_type') == 'General' ? 'selected' : '' }}>General</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>How can we assist you?*</label>
-          <textarea placeholder="Enter Your Description"></textarea>
+        <div class="form-group full-width">
+          <label for="message">How can we assist you?*</label>
+          <textarea id="message" name="message" placeholder="Enter Your Description" required>{{ old('message') }}</textarea>
         </div>
       </div>
 

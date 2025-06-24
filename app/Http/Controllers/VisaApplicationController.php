@@ -5,10 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\VisaApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApplicationStatusUpdated;
 use Illuminate\Support\Str;
 
 class VisaApplicationController extends Controller
 {
+
+    public function index()
+    {
+        $applications = VisaApplication::with('user') // Eager load user relationship
+            ->orderBy('created_at', 'desc')
+            ->paginate(10); // Paginate results
+        
+            return view('admin.user_application', compact('applications'));
+
+    }
+
     public function store(Request $request)
     {
         // Check for duplicate passport number
@@ -81,5 +94,29 @@ class VisaApplicationController extends Controller
 
         return view('profile', compact('visaApplication', 'user'));
     }
+
+    public function adminUserApplications()
+    {
+        $applications = \App\Models\VisaApplication::with('user')->orderBy('created_at', 'desc')->get();
+        return view('admin.Admiin_user', compact('applications'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:approved,rejected',
+            'feedback' => 'nullable|string',
+        ]);
+
+        $application = VisaApplication::findOrFail($id);
+        $application->status = $request->status;
+        $application->save();
+
+        // Send email to user
+        if ($application->user) {
+            Mail::to($application->user->email)->send(new ApplicationStatusUpdated($application, $request->feedback));
+        }
+
+        return redirect()->back()->with('success', 'Application status updated and user notified.');
+    }
 }
-    

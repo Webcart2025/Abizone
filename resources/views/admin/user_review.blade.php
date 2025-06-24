@@ -85,42 +85,40 @@
                         </div>
                         
                         <div id="review-list">
+                            @forelse ($reviews as $review)
                             <div class="grid grid-cols-12 p-4 border-b border-gray-200 hover:bg-gray-50 review-card transition duration-200 items-center">
                                 <div class="col-span-2">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                            <span class="text-blue-600 font-medium">JD</span>
+                                            <span class="text-blue-600 font-medium">{{ strtoupper(substr($review->name, 0, 2)) }}</span>
                                         </div>
                                         <div class="ml-3">
-                                            <div class="text-sm font-medium text-gray-900">John Doe</div>
-                                            <div class="text-sm text-gray-500">john.doe@email.com</div>
+                                            <div class="text-sm font-medium text-gray-900">{{ $review->name }}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-span-2">
                                     <div class="flex items-center space-x-2">
                                         <div class="flex">
-                                            <i class="fas fa-star star"></i>
-                                            <i class="fas fa-star star"></i>
-                                            <i class="fas fa-star star"></i>
-                                            <i class="fas fa-star star"></i>
-                                            <i class="fas fa-star star"></i>
+                                            @for ($i = 0; $i < 5; $i++)
+                                                <i class="fas fa-star {{ $i < $review->rating ? 'star' : 'star empty' }}"></i>
+                                            @endfor
                                         </div>
-                                        <span class="text-sm font-medium rating-5 px-2 py-1 rounded-full">5.0</span>
+                                        <span class="text-sm font-medium rating-{{$review->rating}} px-2 py-1 rounded-full">{{ number_format($review->rating, 1) }}</span>
                                     </div>
                                 </div>
                                 <div class="col-span-4">
-                                    <p class="text-sm text-gray-900">Excellent service! The visa application process was smooth and professional. The staff was very helpful throughout the entire process.</p>
+                                    <p class="text-sm text-gray-900 truncate">{{ $review->message }}</p>
                                 </div>
                                 <div class="col-span-2">
-                                    <div class="text-sm text-gray-900">Jun 15, 2023</div>
-                                    <div class="text-sm text-gray-500">14:30</div>
+                                    <div class="text-sm text-gray-900">{{ $review->created_at->format('M d, Y') }}</div>
+                                    <div class="text-sm text-gray-500">{{ $review->created_at->format('H:i') }}</div>
                                 </div>
                                 <div class="col-span-1">
-                                    <span class="px-2 py-1 rounded-full text-xs status-published">Published</span>
+                                    <span class="px-2 py-1 rounded-full text-xs status-{{ $review->status }}">{{ ucfirst($review->status) }}</span>
                                 </div>
                                 <div class="col-span-1 flex space-x-2">
-                                    <button class="text-indigo-600 hover:text-indigo-800" onclick="viewReview('1')">
+                                    <button class="text-indigo-600 hover:text-indigo-800" onclick='viewReview(@json($review))'>
                                         <i class="fas fa-eye"></i>
                                     </button>
                                     <button class="text-green-600 hover:text-green-800">
@@ -131,72 +129,15 @@
                                     </button>
                                 </div>
                             </div>
-                            
-                            <div class="grid grid-cols-12 p-4 border-b border-gray-200 hover:bg-gray-50 review-card transition duration-200 items-center">
-                                <div class="col-span-2">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center">
-                                            <span class="text-purple-600 font-medium">AS</span>
-                                        </div>
-                                        <div class="ml-3">
-                                            <div class="text-sm font-medium text-gray-900">Alice Smith</div>
-                                            <div class="text-sm text-gray-500">alice.smith@email.com</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-span-2">
-                                    <div class="flex items-center space-x-2">
-                                        <div class="flex">
-                                            <i class="fas fa-star star"></i>
-                                            <i class="fas fa-star star"></i>
-                                            <i class="fas fa-star star"></i>
-                                            <i class="fas fa-star star"></i>
-                                            <i class="far fa-star star empty"></i>
-                                        </div>
-                                        <span class="text-sm font-medium rating-4 px-2 py-1 rounded-full">4.0</span>
-                                    </div>
-                                </div>
-                                <div class="col-span-4">
-                                    <p class="text-sm text-gray-900">Good experience overall. The application was processed quickly and the team was responsive to my questions.</p>
-                                </div>
-                                <div class="col-span-2">
-                                    <div class="text-sm text-gray-900">Jun 16, 2023</div>
-                                    <div class="text-sm text-gray-500">09:15</div>
-                                </div>
-                                <div class="col-span-1">
-                                    <span class="px-2 py-1 rounded-full text-xs status-pending">Pending</span>
-                                </div>
-                                <div class="col-span-1 flex space-x-2">
-                                    <button class="text-indigo-600 hover:text-indigo-800" onclick="viewReview('2')">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="text-green-600 hover:text-green-800">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    <button class="text-red-600 hover:text-red-800">
-                                        <i class="fas fa-ban"></i>
-                                    </button>
-                                </div>
+                            @empty
+                            <div class="text-center py-8 text-gray-500">
+                                No reviews found.
                             </div>
+                            @endforelse
                         </div>
                         
                         <div class="p-4 flex justify-between items-center">
-                            <div class="text-sm text-gray-600">
-                                Showing 1 to 2 of 124 reviews
-                            </div>
-                            <div class="flex space-x-1">
-                                <button class="pagination-btn px-3 py-1 rounded-lg border hover:bg-gray-100">
-                                    <i class="fas fa-chevron-left"></i>
-                                </button>
-                                <button class="pagination-btn active px-3 py-1 rounded-lg border">1</button>
-                                <button class="pagination-btn px-3 py-1 rounded-lg border hover:bg-gray-100">2</button>
-                                <button class="pagination-btn px-3 py-1 rounded-lg border hover:bg-gray-100">3</button>
-                                <span class="px-3 py-1">...</span>
-                                <button class="pagination-btn px-3 py-1 rounded-lg border hover:bg-gray-100">8</button>
-                                <button class="pagination-btn px-3 py-1 rounded-lg border hover:bg-gray-100">
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
+                            {{ $reviews->links() }}
                         </div>
                     </div>
                 </div>
@@ -207,7 +148,7 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-gray-500 text-sm">Average Rating</p>
-                                    <h3 class="text-2xl font-bold text-gray-900">4.2</h3>
+                                    <h3 class="text-2xl font-bold text-gray-900">{{ number_format($averageRating, 2) }}</h3>
                                 </div>
                                 <div class="bg-yellow-100 p-3 rounded-full">
                                     <i class="fas fa-star text-yellow-600 text-xl"></i>
@@ -219,7 +160,7 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-gray-500 text-sm">Total Reviews</p>
-                                    <h3 class="text-2xl font-bold text-gray-900">1,248</h3>
+                                    <h3 class="text-2xl font-bold text-gray-900">{{ $totalReviews }}</h3>
                                 </div>
                                 <div class="bg-blue-100 p-3 rounded-full">
                                     <i class="fas fa-comments text-blue-600 text-xl"></i>
@@ -231,7 +172,7 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-gray-500 text-sm">Published Reviews</p>
-                                    <h3 class="text-2xl font-bold text-gray-900">1,156</h3>
+                                    <h3 class="text-2xl font-bold text-gray-900">{{ $publishedReviews }}</h3>
                                 </div>
                                 <div class="bg-green-100 p-3 rounded-full">
                                     <i class="fas fa-check-circle text-green-600 text-xl"></i>
@@ -243,7 +184,7 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-gray-500 text-sm">Pending Reviews</p>
-                                    <h3 class="text-2xl font-bold text-gray-900">92</h3>
+                                    <h3 class="text-2xl font-bold text-gray-900">{{ $pendingReviews }}</h3>
                                 </div>
                                 <div class="bg-orange-100 p-3 rounded-full">
                                     <i class="fas fa-clock text-orange-600 text-xl"></i>
@@ -266,22 +207,14 @@
                             <div class="mt-6">
                                 <div class="flex items-center mb-4">
                                     <div class="flex-shrink-0 h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                        <span class="text-blue-600 font-medium text-lg">JD</span>
+                                        <span id="modal_user_initials" class="text-blue-600 font-medium text-lg"></span>
                                     </div>
                                     <div class="ml-4">
-                                        <h4 class="text-lg font-medium text-gray-900">John Doe</h4>
-                                        <p class="text-sm text-gray-500">john.doe@email.com</p>
+                                        <h4 id="modal_user_name" class="text-lg font-medium text-gray-900"></h4>
                                     </div>
                                     <div class="ml-auto">
-                                        <div class="flex items-center">
-                                            <div class="flex">
-                                                <i class="fas fa-star star text-lg"></i>
-                                                <i class="fas fa-star star text-lg"></i>
-                                                <i class="fas fa-star star text-lg"></i>
-                                                <i class="fas fa-star star text-lg"></i>
-                                                <i class="fas fa-star star text-lg"></i>
-                                            </div>
-                                            <span class="ml-2 text-lg font-medium">5.0</span>
+                                        <div id="modal_rating_stars" class="flex items-center">
+                                            <!-- Stars will be injected here -->
                                         </div>
                                     </div>
                                 </div>
@@ -289,7 +222,7 @@
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-500 mb-2">Review Message</label>
                                     <div class="bg-gray-50 p-4 rounded-lg">
-                                        <p class="text-gray-900">Excellent service! The visa application process was smooth and professional. The staff was very helpful throughout the entire process.</p>
+                                        <p id="modal_message" class="text-gray-900"></p>
                                     </div>
                                 </div>
                                 
@@ -333,7 +266,23 @@
             reviewsSection.classList.add('hidden');
         });
         
-        function viewReview(reviewId) {
+        function viewReview(review) {
+            document.getElementById('modal_user_initials').textContent = review.name.substr(0, 2).toUpperCase();
+            document.getElementById('modal_user_name').textContent = review.name;
+            
+            const starsContainer = document.getElementById('modal_rating_stars');
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < 5; i++) {
+                const starIcon = document.createElement('i');
+                starIcon.className = 'fas fa-star text-lg ' + (i < review.rating ? 'star' : 'star empty');
+                starsContainer.appendChild(starIcon);
+            }
+            const ratingSpan = document.createElement('span');
+            ratingSpan.className = 'ml-2 text-lg font-medium';
+            ratingSpan.textContent = parseFloat(review.rating).toFixed(1);
+            starsContainer.appendChild(ratingSpan);
+
+            document.getElementById('modal_message').textContent = review.message;
             document.getElementById('reviewModal').classList.remove('hidden');
         }
         

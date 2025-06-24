@@ -14,7 +14,7 @@
     </div>
 
     <ul class="desktop-nav">
-      <li><a href="{{ route('logins') }}">Visa</a></li>
+      <li><a href="{{ route('login') }}">Visa</a></li>
       <li><a href="ContactUs">Contact Us</a></li>
       <li><a href="AboutUs">About Us</a></li>
       <li><a href="SignUp">Login</a></li>
@@ -33,7 +33,7 @@
       <li><a href="Document">Visa</a></li>
       <li><a href="ContactUs">Contact Us</a></li>
       <li><a href="AboutUs">About Us</a></li>
-      <li><a href="Logins">Login</a></li>
+      <li><a href="Login">Login</a></li>
     </ul>
   </div>
 

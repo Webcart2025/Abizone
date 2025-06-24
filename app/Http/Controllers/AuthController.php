@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
     public function logins(){
-        return view('user.welcome'); // add new index page
+        return view('user.Login'); // add new index page
     }
     // public function admin(){
     //     return view('Admin');
@@ -26,25 +27,36 @@ class AuthController extends Controller
     }
     public function loginPost(Request $request)
     {
-        try {
-            $request->validate([
-                'email' => 'required|email',
-                'password' => 'required'
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        Log::info('Login attempt', ['email' => $request->email]);
+
+        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+            $request->session()->regenerate();
+            $user = Auth::user();
+            
+            Log::info('User authenticated', [
+                'id' => $user->id,
+                'email' => $user->email,
+                'password'=>$user->password,
+                'role' => $user->role
             ]);
 
-            $credentials = $request->only('email', 'password');
-            
-            if (Auth::attempt($credentials, $request->has('remember'))) {
-                $request->session()->regenerate();
-                return redirect()->intended(route('logins'));
+            if ($user->isAdmin()) {
+                Log::info('Redirecting admin to dashboard');
+                return view('admin.Admin_Dashboard');
             }
 
-            return redirect()->back()->with('error', 'Invalid email or password');
-            
-        } catch (\Exception $e) {
-            Log::error('Login error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Login failed: ' . $e->getMessage());
+            return redirect()->route('home');
         }
+
+        Log::warning('Failed login attempt', ['email' => $request->email]);
+        return back()->withErrors([
+            'email' => 'Invalid credentials',
+        ])->onlyInput('email');
     }
     public function register(){
         return view('user.SignUp');
@@ -99,6 +111,14 @@ public function logout(Request $request)
     $request->session()->invalidate();
     $request->session()->regenerateToken();
     return redirect()->route('logins');
+}
+ protected function authenticated(Request $request, $user)
+{
+    if ($user->role === 'admin') {
+        return redirect()->route('admin.dashboard');
+    }
+
+    return redirect()->route('/');
 }
 
 }
