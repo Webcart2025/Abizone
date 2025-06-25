@@ -47,7 +47,7 @@ class AuthController extends Controller
 
             if ($user->isAdmin()) {
                 Log::info('Redirecting admin to dashboard');
-                return view('admin.Admin_Dashboard');
+                return redirect()->route('admin.dashboard');
             }
 
             return redirect()->route('home');
@@ -119,6 +119,16 @@ public function logout(Request $request)
     }
 
     return redirect()->route('/');
+}
+
+public function testPayment($id)
+{
+    $payment = \App\Models\VisaPayment::findOrFail($id);
+    $payment->payment_status = 'completed';
+    $payment->transaction_id = 'TEST-' . uniqid();
+    $payment->save();
+
+    return back()->with('success', 'Test payment marked as completed!');
 }
 
 }

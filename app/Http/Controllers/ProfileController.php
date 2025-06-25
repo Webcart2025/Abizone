@@ -38,4 +38,13 @@ class ProfileController extends Controller
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
     }
+
+    public function index()
+    {
+        $user = Auth::user();
+        $visaApplication = \App\Models\VisaApplication::where('user_id', $user->id)
+            ->latest()
+            ->first();
+        return view('user.Profile', compact('user', 'visaApplication'));
+    }
 }

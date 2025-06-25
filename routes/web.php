@@ -50,7 +50,7 @@ Route::get('/SignUp', function () {
     return view('user.SignUp');
 })->name('logins');
 
-Route::get('/Login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
 
 
 Route::get('/Document', function () {
@@ -173,7 +173,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     });
 
-     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('adminn');
+     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 
     Route::get('/applications', [VisaApplicationController::class, 'index'])->name('admin.applications');
@@ -204,6 +204,8 @@ Route::middleware(['auth'])->group(function () {
         //     return view('admin.Admin_ Dashboard');
         // })->name('Dashboard');
 
-      
+        Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::post('/payment/{id}/test', [VisaPaymentController::class, 'testPayment'])->name('payment.test');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
        
     });

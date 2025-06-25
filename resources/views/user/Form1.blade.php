@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visa Application Form</title>
     <link rel="stylesheet" href="{{ asset('asset/css/Form1.css')}}" />
+    <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}" />
        
  
 </head>
@@ -223,7 +224,6 @@
 
                     <!-- Form Actions -->
                     <div class="form-actions" >
-                        <button type="submit" class="add-person">+ ADD new person</button>
                         <button type="submit" class="submit-button" >Submit</button>
                         <!-- <a href="TotalBill" class="next-page">Next Page</a> -->
                         <!-- <button type="submit" class="submit">Submit</button> -->
@@ -421,171 +421,8 @@ function extractDetails(text, type) {
     return { passportNumber, issueDate, expiryDate, address, panNumber, fullName };
 }
     document.addEventListener('DOMContentLoaded', function() {
-        const maxPersons = 4;
-        let personCount = 1;
         const form = document.getElementById('visaForm');
         const rightSection = document.querySelector('.right-section');
-        
-        // Add Person functionality
-        document.querySelector('.add-person').addEventListener('click', function() {
-            if (personCount >= maxPersons) {
-                alert(`Maximum of ${maxPersons} persons allowed`);
-                return;
-            }
-            
-            personCount++;
-            const personId = personCount;
-            
-            // Clone the first person container
-            const originalPerson = document.querySelector('.person-container');
-            const newPerson = originalPerson.cloneNode(true);
-            
-            // Update person details
-            newPerson.id = `person-${personId}`;
-            newPerson.querySelector('.person-title').textContent = `Person ${personId}`;
-            
-            // Show remove button for cloned persons
-            newPerson.querySelector('.remove-person').style.display = 'block';
-            newPerson.querySelector('.remove-person').addEventListener('click', function() {
-                if (confirm('Are you sure you want to remove this person?')) {
-                    newPerson.remove();
-                    document.querySelector(`.person-uploads-right[data-person="${personId}"]`).remove();
-                    personCount--;
-                    updatePersonNumbers();
-                }
-            });
-            
-            // Clear all input values in the new person section
-            newPerson.querySelectorAll('input').forEach(input => {
-                if (input.type !== 'file') {
-                    input.value = '';
-                    input.classList.remove('error');
-                }
-            });
-            newPerson.querySelectorAll('select').forEach(select => {
-                select.selectedIndex = 0;
-                select.classList.remove('error');
-            });
-            
-            // Insert the new person before the form actions
-            const formActions = document.querySelector('.form-actions');
-            form.insertBefore(newPerson, formActions);
-            
-            // Create corresponding upload section in right panel
-            createUploadSection(personId);
-        });
-        
-        // Function to create upload section for a person
-        function createUploadSection(personId) {
-            const uploadSection = document.createElement('div');
-            uploadSection.className = 'person-uploads-right';
-            uploadSection.dataset.person = personId;
-            
-            uploadSection.innerHTML = `
-                <h3>Person ${personId} Documents</h3>
-                <div class="upload-container">
-                    <label class="upload-box">
-                        <img src="{{url('asset/css/Images/uploadicon.png')}}" alt="Upload Icon" class="preview-img">
-                        <p>Upload first page of passport</p>
-                        <input type="file" accept="image/*" id="firstPageUpload" class="file-input" hidden required>
-                        <span class="file-name">Drag and drop image</span>
-                        
-                    </label>
-                    
-                </div>
-
-                <div class="upload-container">
-                    <label class="upload-box">
-                        <img src="{{url('asset/css/Images/uploadicon.png')}}" alt="Upload Icon" class="preview-img">
-                        <p>Upload last page of passport</p>
-                        <input type="file" accept="image/*" id="lastPageUpload" class="file-input" hidden required>
-                        <span class="file-name">Drag and drop image</span>
-                        
-                    </label>
-                    
-                </div>
-
-                <div class="upload-container">
-                    <label class="upload-box">
-                        <img src="{{url('asset/css/Images/uploadicon.png')}}" alt="Upload Icon" class="preview-img">
-                        <p>Upload traveller photograph</p>
-                         <input type="file" accept="image/*" class="file-input" hidden required>
-                        <span class="file-name">Drag and drop image</span>
-                       
-                    </label>
-                    
-                </div>
-                <div class="upload-container">
-                    <label class="upload-box">
-                        <img src="{{url('asset/css/Images/uploadicon.png')}}" alt="Upload Icon" class="preview-img">
-                        <p>Upload pan card photo</p>
-                        <input type="file" accept="image/*" id="panCardUpload"  class="file-input" hidden required>
-                        <span class="file-name">Drag and drop image</span>
-                        
-                    </label>
-                    
-                </div>
-
-                <div class="upload-container">
-                    <label class="upload-box">
-                        <img src="{{url('asset/css/Images/uploadicon.png')}}" alt="Upload Icon" class="preview-img">
-                        <p>Upload return ticket</p>
-                        <input type="file" accept="image/*"  class="file-input" hidden required>
-                        <span class="file-name">Drag and drop image</span>
-                        
-                    </label>
-                   
-                </div>
-
-                <div class="upload-container">
-                    <label class="upload-box">
-                        <img src="{{url('asset/css/Images/uploadicon.png')}}" alt="Upload Icon" class="preview-img">
-                        <p>Upload hotel booking details</p>
-                        <input type="file" accept="image/*" class="file-input" hidden required>
-                        <span class="file-name">Drag and drop image</span>
-                        
-                    </label>
-                    
-                </div>    
-            `;
-            
-            // Find all person upload sections
-            const personUploadSections = rightSection.querySelectorAll('.person-uploads-right');
-            
-            if (personUploadSections.length > 0) {
-                // Insert after the last person upload section
-                const lastPersonSection = personUploadSections[personUploadSections.length - 1];
-                rightSection.insertBefore(uploadSection, lastPersonSection.nextSibling);
-            } else {
-                // Insert before the additional documents if no person sections exist
-                const additionalDocs = rightSection.querySelector('.upload-container');
-                if (additionalDocs) {
-                    rightSection.insertBefore(uploadSection, additionalDocs);
-                } else {
-                    rightSection.appendChild(uploadSection);
-                }
-            }
-            
-            // Initialize file uploads for the new section
-            initFileUploads(uploadSection);
-        }
-        
-        // Function to update person numbers when someone is removed
-        function updatePersonNumbers() {
-            const persons = document.querySelectorAll('.person-container');
-            persons.forEach((person, index) => {
-                const personNumber = index + 1;
-                person.id = `person-${personNumber}`;
-                person.querySelector('.person-title').textContent = `Person ${personNumber}`;
-                
-                // Update corresponding upload section
-                const uploadSection = document.querySelector(`.person-uploads-right[data-person="${personNumber}"]`);
-                if (uploadSection) {
-                    uploadSection.dataset.person = personNumber;
-                    uploadSection.querySelector('h3').textContent = `Person ${personNumber} Documents`;
-                }
-            });
-        }
         
         // Function to initialize file uploads for a container
         function initFileUploads(container) {
@@ -652,7 +489,7 @@ function extractDetails(text, type) {
         });
         
         // Form validation before proceeding to TotalBill
-        document.querySelector('.next-page').addEventListener('click', function(e) {
+        document.querySelector('.next-page')?.addEventListener('click', function(e) {
             e.preventDefault();
             
             let isValid = true;

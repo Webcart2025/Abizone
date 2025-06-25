@@ -31,27 +31,25 @@ class VisaPaymentController extends Controller
                 'status' => 'pending'
             ]);
 
-            // Create payment record
+            // Create payment record and mark as completed for test/demo
             $payment = VisaPayment::create([
                 'visa_application_id' => $visaApplication->id,
                 'visa_type' => $request->visa_type,
                 'amount' => $request->price,
                 'duration_days' => $request->days,
                 'travel_date' => $request->selected_date,
-                'payment_status' => 'pending'
+                'payment_status' => 'completed', 
+                'transaction_id' => 'TEST-' . uniqid()
             ]);
 
             DB::commit();
 
-            // Here you would typically integrate with a payment gateway
-            // For now, we'll just redirect to a success page
-            return redirect()->route('visa.status', ['id' => $visaApplication->id])
-                ->with('success', 'Visa application and payment initiated successfully!');
+            // Redirect to profile with success message
+            return redirect()->route('profile')->with('success', 'Your visa applied successfully!');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()
-                ->with('error', 'An error occurred while processing your application. Please try again.');
+            return redirect()->back()->with('error', 'An error occurred while processing your application. Please try again.');
         }
     }
 
